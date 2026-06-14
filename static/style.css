@@ -1,0 +1,117 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ddeaf6;
+  border: 1px solid #000;
+}
+h1 {
+  text-align: center;
+  font-size: 24px;
+}
+input[type="submit"] {
+  width: 100px;
+  padding: 5px 20px;
+  background-color: #4472c4;
+  color: #fff;
+  text-align: center;
+  border: #16305e 1px solid;
+  border-radius: 5px;
+}
+input[type="submit"]:hover {
+  background-color: #3766b9;
+  cursor: pointer;
+}
+.center_div {
+  text-align: center;
+}
+.center_p {
+  text-align: center;
+}
+.button_a {
+  display: inline-block;
+  width: 100px;
+  margin-top: 20px;
+  padding: 5px 20px;
+  background-color: #fff;
+  color: #16305e;
+  text-align: center;
+  border: #16305e 1px solid;
+  border-radius: 5px;
+  font-size: 14px;
+  text-decoration: none;
+}
+.button_a:hover {
+  background-color: #e9e9e9;
+}
+
+/* 会員情報登録フォーム */
+.mr_container {
+  width: 400px;
+  margin: 20px auto;
+}
+.mr-errors {
+  width: 300px;
+  margin: 0 auto;
+  color: red;
+  font-size: 12px;
+}
+.mr_contentsWrapper {
+  padding-bottom: 20px;
+}
+.mr_nameInputWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.mr_inputs {
+  display: flex;
+  gap: 10px;
+}
+.mr_nameTitle {
+  padding-right: 1px;
+}
+.mr_genderInputWrapper {
+  display: flex;
+  gap: 40px;
+}
+.mr_addressInputWrapper {
+  display: flex;
+  gap: 40px;
+}
+.mr_prefInputs {
+  display: flex;
+  flex-direction: column;
+}
+.mr_prefTitle {
+  display: inline-block;
+  width: 100px;
+  font-size: 14px;
+}
+.mr_addressInput {
+  width: 200px;
+}
+.mr_title {
+  display: inline-block;
+  width: 120px;
+}
+.mr_Input {
+  width: 200px;
+}
+/* 会員情報確認画面 */
+.mr_confirmTable {
+  padding-bottom: 15px;
+}
+.mr_confirmTable td,th {
+  padding: 15px;
+}
+.mr_confirmTable th {
+  width: 150px;
+  font-weight: normal;
+  text-align: left;
+}
