@@ -1,8 +1,3 @@
-<?php 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-?>
-<?php session_start(); ?>
 <?php require_once './layout/header.php' ?>
 <?php require_once './data/list.php' ?>
 
@@ -142,8 +137,10 @@ $errors= $_SESSION['member_regist']['errors'] ?? '';
 				<input type="submit" value="確認画面へ">
 			</div>
 		</form>
+		<div class="center_div">
+      <a href="index.php" class="button_a">トップに戻る</a>    
+    </div>
 	</div>
-
 </main>
 
 <?php require_once './layout/footer.php' ?>

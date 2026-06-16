@@ -1,8 +1,3 @@
-<?php 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-?>
-<?php session_start(); ?>
 <?php require_once './layout/header.php' ?>
 <?php require_once './data/list.php' ?>
 <?php require_once './db/pdo.php' ?>
@@ -119,6 +114,9 @@ unset($_SESSION['member_regist']);
 	<h1><?php echo $message_h1 ?></h1>
   <div class="mr_container">
 	  <p class="center_p"><?php echo $message_p ?></p>
+  </div>
+  <div class="center_div">
+    <a href="index.php" class="button_a button_a_blue">トップに戻る</a>    
   </div>
 </main>
 

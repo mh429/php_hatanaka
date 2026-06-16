@@ -1,8 +1,3 @@
-<?php 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-?>
-<?php session_start(); ?>
 <?php require_once './layout/header.php' ?>
 <?php require_once './data/list.php' ?>
 <?php require_once './db/pdo.php' ?>

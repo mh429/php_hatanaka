@@ -5,8 +5,9 @@
 }
 
 main {
-  width: 600px;
-  margin: 50px auto;
+  width: 900px;
+  min-height: 500px;
+  margin: 0 auto 20px;
   padding: 30px;
   background-color: #ddeaf6;
   border: 1px solid #000;
@@ -16,7 +17,7 @@ h1 {
   font-size: 24px;
 }
 input[type="submit"] {
-  width: 100px;
+  width: 150px;
   padding: 5px 20px;
   background-color: #4472c4;
   color: #fff;
@@ -36,7 +37,7 @@ input[type="submit"]:hover {
 }
 .button_a {
   display: inline-block;
-  width: 100px;
+  width: 150px;
   margin-top: 20px;
   padding: 5px 20px;
   background-color: #fff;
@@ -49,6 +50,41 @@ input[type="submit"]:hover {
 }
 .button_a:hover {
   background-color: #e9e9e9;
+}
+.button_a_blue {
+  background-color: #4472c4;
+  color: #fff;
+  border: #16305e 1px solid;
+}
+.button_a_blue:hover {
+  background-color: #3766b9;
+}
+
+
+/* ヘッダー */
+.header_wrapper {
+  width: 900px;
+  margin: 20px auto 0;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fbe4d5;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+.header_button_a {
+  background-color: rgba(255,255,255,0);
+}
+.header_button_a:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* トップ画面 */
+.topLogo {
+  padding-top: 100px;
+  color: #fff;
+  font-size: 50px;
 }
 
 /* 会員情報登録フォーム */
@@ -114,4 +150,17 @@ input[type="submit"]:hover {
   width: 150px;
   font-weight: normal;
   text-align: left;
+}
+
+/* ログイン画面 */
+.login_title {
+  display: inline-block;
+  width: 160px;
+}
+.login-errors {
+  width: 400px;
+  padding-bottom: 30px;
+  margin: 0 auto;
+  color: red;
+  font-size: 14px;
 }
