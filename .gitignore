@@ -1,2 +1,4 @@
 # .gitignore
 db/pdo.php
+logs/access_log
+logs/error_log

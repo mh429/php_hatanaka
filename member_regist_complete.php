@@ -98,10 +98,12 @@ if (!empty($errors)) {
 }
 
 // DB登録
+$password_hash = password_hash($password, PASSWORD_DEFAULT);
+
 $sql_insert=$pdo->prepare('INSERT INTO members VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, NOW(),NOW(),NULL)');
 $message_h1 = '';
 $message_p = '';
-if ($sql_insert->execute([$name_sei, $name_mei, $gender, $pref_name, $address !== '' ? $address : NULL, $password, $email])) {
+if ($sql_insert->execute([$name_sei, $name_mei, $gender, $pref_name, $address !== '' ? $address : NULL, $password_hash, $email])) {
   $message_h1 = '会員登録完了';
   $message_p = '会員登録が完了しました。';
 } else {

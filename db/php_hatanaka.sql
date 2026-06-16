@@ -1,7 +1,14 @@
+-- ****************************************
+-- DB作成
+-- ****************************************
 drop database if exists php_hatanaka;
 create database php_hatanaka default character set utf8 collate utf8_general_ci;
 use php_hatanaka;
 
+
+-- ****************************************
+-- membersテーブル
+-- ****************************************
 CREATE TABLE members (
   id INT NOT NULL AUTO_INCREMENT COMMENT '会員ID',
   name_sei VARCHAR(255) NOT NULL COMMENT '氏名（姓）',
@@ -11,11 +18,21 @@ CREATE TABLE members (
   address VARCHAR(255) DEFAULT NULL COMMENT 'それ以降の住所',
   password VARCHAR(255) NOT NULL COMMENT 'パスワード',
   email VARCHAR(255) NOT NULL COMMENT 'メールアドレス',
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
-  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '編集日時',
+  created_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '登録日時',
+  updated_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '編集日時',
   deleted_at TIMESTAMP NULL DEFAULT NULL COMMENT '削除日時',
   PRIMARY KEY (id)
 );
+
+ALTER TABLE members
+MODIFY created_at TIMESTAMP NOT NULL
+DEFAULT '0000-00-00 00:00:00'
+COMMENT '登録日時';
+
+ALTER TABLE members
+MODIFY updated_at TIMESTAMP NOT NULL
+DEFAULT '0000-00-00 00:00:00'
+COMMENT '編集日時';
 
 INSERT INTO members
 (name_sei, name_mei, gender, pref_name, address, password, email, created_at, updated_at, deleted_at)
