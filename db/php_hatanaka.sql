@@ -68,3 +68,77 @@ VALUES
 ('長谷川','由佳',2,'山形県','山形市香澄町','pass0028','hasegawa@example.com',NOW(),NOW(),NULL),
 ('村上','悠人',1,'秋田県','秋田市中通','pass0029','murakami@example.com',NOW(),NOW(),NULL),
 ('近藤','里奈',2,'青森県','青森市新町','pass0030','kondo@example.com',NOW(),NOW(),NULL);
+
+
+-- ****************************************
+-- threadsテーブル
+-- ****************************************
+CREATE TABLE threads (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'スレッドID',
+  member_id INT NOT NULL COMMENT '会員ID',
+  title VARCHAR(255) NOT NULL COMMENT 'タイトル',
+  content TEXT NOT NULL COMMENT 'コメント',
+  created_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '登録日時',
+  updated_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '編集日時',
+  deleted_at TIMESTAMP NULL DEFAULT NULL COMMENT '削除日時',
+  PRIMARY KEY (id)
+);
+
+INSERT INTO threads
+(member_id, title, content, created_at, updated_at, deleted_at)
+VALUES
+(1,
+'スレッド作成方法',
+'スレッドを作成すると、議題ごとにコミュニケーションの場を分けることができるので、自然と情報が整理されます。
+スレッドは、そのスペースにアクセスできるすべてのユーザーが作成できます。',
+NOW(), NOW(), NULL),
+(2,
+'MySQLの正規化について',
+'データベース設計を勉強している初心者です。
+第一正規形、第二正規形、第三正規形までは本で学んだのですが、実際にどこまで厳密に行えばよいのか分かりません。
+実務ではどのように考えているのか知りたいです。',
+NOW(), NOW(), NULL),
+(3,
+'ポートフォリオ制作で悩んでいます',
+'未経験から転職を目指しているため、ポートフォリオを作成しています。
+皆さんが作ってよかったものや、採用担当者の反応がよかった機能などがあれば教えてください。',
+NOW(), NOW(), NULL);
+
+(1,
+'Gitのブランチ運用について',
+'現在は個人開発なので main ブランチだけで作業しています。
+機能追加のたびにブランチを切った方がよいと聞きますが、個人開発でもそのような運用をした方がよいのでしょうか。
+おすすめの運用方法があれば知りたいです。',
+NOW(), NOW(), NULL),
+(2,
+'エラーメッセージの読み方',
+'PHPやJavaScriptでエラーが出たとき、どこを見ればよいのか分からず苦戦しています。
+英語のメッセージを翻訳しながら調べていますが、時間がかかってしまいます。
+皆さんはエラーが出たとき、どのような順番で原因を調査していますか。
+効率よくデバッグするコツがあれば教えてください。',
+NOW(), NOW(), NULL);
+(2,'HTMLとCSSのおすすめ学習サイト','初心者向けで分かりやすいサイトや動画を探しています。',NOW(),NOW(),NULL),
+(2,'JavaScriptの非同期処理が難しい','Promiseやasync awaitの違いがよく分かりません。理解のコツを知りたいです。',NOW(),NOW(),NULL),
+(2,'ポートフォリオ制作のアイデア','就職活動用にポートフォリオを作りたいです。どんな機能を入れるべきでしょうか。',NOW(),NOW(),NULL),
+(2,'SQLのJOINについて','INNER JOINとLEFT JOINの使い分けがよく分かりません。具体例があれば教えてください。',NOW(),NOW(),NULL),
+(10,'おすすめのエディタ設定','皆さんはVSCodeをどのようにカスタマイズしていますか。',NOW(),NOW(),NULL),
+(11,'Reactの勉強を始めました','useStateやuseEffectの使い方を覚えるのに苦戦しています。',NOW(),NOW(),NULL),
+(12,'パスワードの保存方法','平文保存は危険と聞きました。password_hashについて知りたいです。',NOW(),NOW(),NULL),
+(13,'フォームのバリデーションについて','サーバー側とクライアント側の両方でチェックする必要がありますか。',NOW(),NOW(),NULL),
+(14,'Dockerを学ぶタイミング','PHPとMySQLの基礎が終わった後に学ぶべきでしょうか。',NOW(),NOW(),NULL),
+(15,'Web制作とWebアプリ開発の違い','仕事内容や必要なスキルの違いについて知りたいです。',NOW(),NOW(),NULL),
+(16,'CSSのFlexboxについて','justify-contentやalign-itemsが混乱します。覚えるコツはありますか。',NOW(),NOW(),NULL),
+(17,'PHPの配列操作','array_mapやarray_filterを使いこなしたいです。おすすめの練習方法はありますか。',NOW(),NOW(),NULL),
+(18,'MAMPの使い方について','ローカル環境で開発していますが、設定で迷うことがあります。',NOW(),NOW(),NULL),
+(19,'APIを使った開発をしたい','初心者でも扱いやすいAPIがあれば教えてください。',NOW(),NOW(),NULL),
+(20,'おすすめの技術書','PHPやSQLを学ぶのに役立った本を知りたいです。',NOW(),NOW(),NULL),
+(21,'プログラミングのモチベーション維持','勉強が続かない時に皆さんはどうしていますか。',NOW(),NOW(),NULL),
+(22,'エラーメッセージの読み方','英語のエラー文を理解するのに時間がかかります。コツが知りたいです。',NOW(),NOW(),NULL),
+(23,'MVCモデルについて','Laravelを学ぶ前にMVCの考え方を理解したいです。',NOW(),NOW(),NULL),
+(24,'Webエンジニア転職について','未経験から転職する際に重要なポイントは何でしょうか。',NOW(),NOW(),NULL),
+(25,'JavaScriptとTypeScriptの違い','TypeScriptを学ぶメリットについて教えてください。',NOW(),NOW(),NULL),
+(26,'PHPのセッション管理','ログイン機能を実装しています。セッションの扱い方で注意点はありますか。',NOW(),NOW(),NULL),
+(27,'おすすめの個人開発テーマ','学習のために作るならどんなアプリがよいでしょうか。',NOW(),NOW(),NULL),
+(28,'デバッグの進め方','バグが見つからない時に皆さんが意識していることを知りたいです。',NOW(),NOW(),NULL),
+(29,'正規化はどこまで必要か','第三正規形までやるべきなのか迷っています。実務での考え方を知りたいです。',NOW(),NOW(),NULL),
+(30,'PHPのforeachについて','foreachのキーと値の使い分けについて詳しく知りたいです。',NOW(),NOW(),NULL);

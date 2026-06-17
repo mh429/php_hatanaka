@@ -17,12 +17,12 @@ $_SESSION['login_input']=[
 ];
 
 // ログイン処理
-$isError = False;
+$isError = false;
 if ($email === '') {
-  $isError = True;
+  $isError = true;
 }
 if (trim(mb_convert_kana($password, 's')) === '') {
-  $isError = True;
+  $isError = true;
 }
 if (!$isError) {
   $sql = $pdo->prepare('SELECT * FROM members WHERE email = ?');
@@ -48,7 +48,7 @@ if ($isError) {
 // エラーがなければ以下を実行
 // 値をセッションに保存
 $_SESSION['login_member']=[
-  'name_sei'=>$row['name_sei'], 'name_mei'=>$row['name_mei'], 
+  'id'=>$row['id'], 'name_sei'=>$row['name_sei'], 'name_mei'=>$row['name_mei'], 
 ];
 // セッション削除
 unset($_SESSION['login_input']);

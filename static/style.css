@@ -4,20 +4,24 @@
   padding: 0;
 }
 
+body {
+  padding: 20px 0;
+}
 main {
   width: 900px;
   min-height: 500px;
-  margin: 0 auto 20px;
-  padding: 30px;
+  margin: 0 auto;
+  padding: 50px 30px;
   background-color: #ddeaf6;
   border: 1px solid #000;
+  position: relative;
 }
 h1 {
   text-align: center;
   font-size: 24px;
 }
 input[type="submit"] {
-  width: 150px;
+  width: 160px;
   padding: 5px 20px;
   background-color: #4472c4;
   color: #fff;
@@ -37,7 +41,7 @@ input[type="submit"]:hover {
 }
 .button_a {
   display: inline-block;
-  width: 150px;
+  width: 160px;
   margin-top: 20px;
   padding: 5px 20px;
   background-color: #fff;
@@ -60,11 +64,21 @@ input[type="submit"]:hover {
   background-color: #3766b9;
 }
 
-
 /* ヘッダー */
-.header_wrapper {
+header {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fbe4d5;
+}
+/* .header_wrapper {
   width: 900px;
-  margin: 20px auto 0;
+  margin: 0 auto;
   padding: 20px 40px;
   display: flex;
   justify-content: space-between;
@@ -72,7 +86,7 @@ input[type="submit"]:hover {
   background-color: #fbe4d5;
   border: 1px solid #000;
   border-bottom: none;
-}
+} */
 .header_button_a {
   background-color: rgba(255,255,255,0);
 }
@@ -82,7 +96,7 @@ input[type="submit"]:hover {
 
 /* トップ画面 */
 .topLogo {
-  padding-top: 100px;
+  padding-top: 150px;
   color: #fff;
   font-size: 50px;
 }
@@ -145,6 +159,7 @@ input[type="submit"]:hover {
 }
 .mr_confirmTable td,th {
   padding: 15px;
+  vertical-align: top;
 }
 .mr_confirmTable th {
   width: 150px;
@@ -163,4 +178,43 @@ input[type="submit"]:hover {
   margin: 0 auto;
   color: red;
   font-size: 14px;
+}
+
+/* スレッド作成画面 */
+.tr_container {
+  width: 600px;
+  margin: 20px auto;
+}
+.tr_title {
+  display: inline-block;
+  width: 140px;
+  vertical-align: text-top;
+}
+.tr_input {
+  width: 400px;
+}
+.tr_textarea {
+  width: 400px;
+  height: 150px;
+}
+.tr_label {
+  display: flex;
+}
+/* スレッド作成確認画面 */
+.tr_confirmTable {
+  padding-bottom: 15px;
+}
+.tr_confirmTable td,th {
+  padding: 15px;
+  vertical-align: top;
+}
+.tr_confirmTable th {
+  width: 160px;
+  font-weight: normal;
+  text-align: left;
+  word-break: break-all;
+}
+.tr_confirmTable td {
+  width: 400px;
+  word-break: break-all;
 }
