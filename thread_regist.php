@@ -52,7 +52,7 @@ $errors= $_SESSION['thread_regist']['errors'] ?? '';
 			</div>
 		</form>
 		<div class="center_div">
-      <a href="index.php" class="button_a">トップに戻る</a>    
+      <a href="thread.php" class="button_a">スレッド一覧に戻る</a>    
     </div>
 	</div>
 </main>

@@ -62,8 +62,8 @@ if ($sql_insert->execute([$member_id, $title, $replaced_content])) {
 
 // セッション削除
 unset($_SESSION['thread_regist']);
-// トップ画面に遷移
-header('Location: index.php');
+// スレッド一覧に遷移
+header('Location: thread.php');
 exit;
 
 ?>

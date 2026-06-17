@@ -13,6 +13,7 @@ $name_mei = $_SESSION['login_member']['name_mei'] ?? '';
         <p>ようこそ<?= $name_sei.$name_mei ?> 様</p>
       </div>
       <div>
+        <a href="thread.php" class="button_a header_button_a">スレッド一覧</a> 
         <a href="thread_regist.php" class="button_a header_button_a">新規スレッド作成</a>   
         <a href="logout.php" class="button_a header_button_a">ログアウト</a>   
       </div>
@@ -20,6 +21,7 @@ $name_mei = $_SESSION['login_member']['name_mei'] ?? '';
       <div>
       </div>
       <div>
+        <a href="thread.php" class="button_a header_button_a">スレッド一覧</a> 
         <a href="member_regist.php" class="button_a header_button_a">新規会員登録</a>    
         <a href="login.php" class="button_a header_button_a">ログイン</a> 
       </div>
