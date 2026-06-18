@@ -239,4 +239,6 @@ header {
   display: flex;
   justify-content: space-between;
 }
-
+.disabled{
+  color: gray;
+}

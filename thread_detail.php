@@ -17,19 +17,63 @@ $sql->execute([$thread_id]);
 $thread_info = $sql->fetch(PDO::FETCH_ASSOC);
 
 // コメントの取得
+// $comment_sql = $pdo->prepare(
+//   'SELECT comments.id, comments.comment, comments.created_at, members.name_sei, members.name_mei
+//   FROM comments
+//   JOIN members
+//   ON comments.member_id = members.id
+//   WHERE comments.thread_id = ?
+//   ORDER BY created_at ASC'
+//   );
+// $comment_sql->execute([$thread_id]);
+// // PDOStatement オブジェクトを配列に変換
+// $comments = $comment_sql->fetchAll(PDO::FETCH_ASSOC);
+
+// 総コメント数の取得
+$count_sql = $pdo->prepare(
+    'SELECT COUNT(*)
+     FROM comments
+     WHERE thread_id = ?'
+);
+$count_sql->execute([$thread_id]);
+$total_comments = $count_sql->fetchColumn();
+
+// 現在のページ番号
+$page = $_GET['page'] ?? 1;
+$page = max(1, (int)$page);
+
+// 1ページのコメント数
+$per_page = 5;
+// 総ページ数
+$total_pages = ceil($total_comments / $per_page);
+// 各ページで何件目から取得するか
+$offset = ($page - 1) * $per_page;
+// SQL作る
 $comment_sql = $pdo->prepare(
   'SELECT comments.id, comments.comment, comments.created_at, members.name_sei, members.name_mei
   FROM comments
   JOIN members
   ON comments.member_id = members.id
   WHERE comments.thread_id = ?
-  ORDER BY created_at ASC'
-  );
-$comment_sql->execute([$thread_id]);
-// PDOStatement オブジェクトを配列に変換
+  ORDER BY comments.created_at ASC
+  LIMIT ?
+  OFFSET ?'
+);
+// ？に入れる
+$comment_sql->bindValue(1, $thread_id, PDO::PARAM_INT);
+$comment_sql->bindValue(2, $per_page, PDO::PARAM_INT);
+$comment_sql->bindValue(3, $offset, PDO::PARAM_INT);
+// SQL実行
+$comment_sql->execute();
 $comments = $comment_sql->fetchAll(PDO::FETCH_ASSOC);
 
-// コメント投稿
+
+
+
+
+
+
+// コメント投稿機能
 // 値をセッションから取得
 $comment = $_SESSION['comment'][$thread_id]['comment'] ?? '';
 $error_message = $_SESSION['comment'][$thread_id]['error_message'] ?? '';
@@ -52,7 +96,7 @@ if (isset($_POST['input_comment'])) {
     // エラーをセッションに保存
     $_SESSION['comment'][$thread_id]['error_message'] = $error_message;
     // スレッド詳細画面に戻す
-    header("Location: thread_detail.php?id={$thread_id}");
+    header("Location: thread_detail.php?id={$thread_id}&page={$page}");
     // スクリプトを終了する
     exit;
   }
@@ -63,7 +107,7 @@ if (isset($_POST['input_comment'])) {
   // セッション削除
   unset($_SESSION['comment'][$thread_id]);
   // スレッド詳細画面をリロード
-  header("Location: thread_detail.php?id={$thread_id}");
+  header("Location: thread_detail.php?id={$thread_id}&page={$page}");
   // スクリプトを終了する
   exit;
 }
@@ -79,7 +123,7 @@ if (isset($_POST['input_comment'])) {
   <div class="wrapper">
     <div>
       <h2><?= htmlspecialchars($thread_info['title']) ?></h2>
-      <p><?= count($comments) ?>コメント</p>
+      <p><?= $total_comments ?>コメント</p>
       <time datetime="<?= date('c', strtotime($thread_info['created_at'])) ?>">
         <?= date('Y/n/j G:i', strtotime($thread_info['created_at'])) ?>
       </time>
@@ -87,12 +131,30 @@ if (isset($_POST['input_comment'])) {
 
     <nav class="thread_nav">
       <div>
-        <p>前へ</p>
-        <p>＞</p>
+        <?php if ($page > 1): ?>
+          <a href="?id=<?= $thread_id ?>&page=<?= $page - 1 ?>">
+            <p>前へ</p>
+            <p>＞</p>
+          </a>
+        <?php else: ?>
+          <span class="disabled">
+            <p>前へ</p>
+            <p>＞</p>
+          </span>
+        <?php endif ?>
       </div>
       <div>
-        <p>次へ</p>
-        <p>＞</p>
+        <?php if ($page < $total_pages): ?>
+          <a href="?id=<?= $thread_id ?>&page=<?= $page + 1 ?>">
+            <p>次へ</p>
+            <p>＞</p>
+          </a>
+        <?php else: ?>
+          <span class="disabled">
+            <p>次へ</p>
+            <p>＞</p>
+          </span>
+        <?php endif ?>
       </div>
     </nav>
 
@@ -106,9 +168,12 @@ if (isset($_POST['input_comment'])) {
       </div>
     </div>
 
+
+
     <div>
-      <?php $comment_number = 1; ?>
+      <?php $comment_number = $offset; ?>
       <?php foreach ($comments as $row): ?>
+        <?php $comment_number++; ?>        
         <div>
           <p><?= $comment_number ?>.</p>
           <p><?= htmlspecialchars($row['name_sei']). ' '. htmlspecialchars($row['name_mei']) ?></p>
@@ -116,18 +181,35 @@ if (isset($_POST['input_comment'])) {
           <p><?= nl2br(htmlspecialchars($row['comment'])) ?></p>
           <hr>
         </div>
-        <?php $comment_number++; ?>
       <?php endforeach ?>
     </div>
 
     <nav class="thread_nav">
       <div>
-        <p>前へ</p>
-        <p>＞</p>
+        <?php if ($page > 1): ?>
+          <a href="?id=<?= $thread_id ?>&page=<?= $page - 1 ?>">
+            <p>前へ</p>
+            <p>＞</p>
+          </a>
+        <?php else: ?>
+          <span class="disabled">
+            <p>前へ</p>
+            <p>＞</p>
+          </span>
+        <?php endif ?>
       </div>
       <div>
-        <p>次へ</p>
-        <p>＞</p>
+        <?php if ($page < $total_pages): ?>
+          <a href="?id=<?= $thread_id ?>&page=<?= $page + 1 ?>">
+            <p>次へ</p>
+            <p>＞</p>
+          </a>
+        <?php else: ?>
+          <span class="disabled">
+            <p>次へ</p>
+            <p>＞</p>
+          </span>
+        <?php endif ?>
       </div>
     </nav>
 

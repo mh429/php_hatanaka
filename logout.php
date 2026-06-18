@@ -11,6 +11,7 @@ error_reporting(E_ALL);
 unset($_SESSION['login_member']);
 unset($_SESSION['member_regist']);
 unset($_SESSION['thread_regist']);
+unset($_SESSION['comment']);
 // トップ画面に遷移
 header('Location: index.php');
 exit;

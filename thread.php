@@ -44,7 +44,7 @@ if (trim(mb_convert_kana($search_key, 's')) !== '') {
         <div>
           <p>ID:<?= $row['id'] ?></p>
           <p>
-            <a href="thread_detail.php?id=<?= $row['id'] ?>">
+            <a href="thread_detail.php?id=<?= $row['id'] ?>&page=1">
               <?= htmlspecialchars($row['title']) ?>
             </a>
           </p>
