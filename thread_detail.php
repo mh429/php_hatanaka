@@ -31,9 +31,9 @@ $thread_info = $sql->fetch(PDO::FETCH_ASSOC);
 
 // 総コメント数の取得
 $count_sql = $pdo->prepare(
-    'SELECT COUNT(*)
-     FROM comments
-     WHERE thread_id = ?'
+  'SELECT COUNT(*)
+    FROM comments
+    WHERE thread_id = ?'
 );
 $count_sql->execute([$thread_id]);
 $total_comments = $count_sql->fetchColumn();
@@ -66,9 +66,6 @@ $comment_sql->bindValue(3, $offset, PDO::PARAM_INT);
 // SQL実行
 $comment_sql->execute();
 $comments = $comment_sql->fetchAll(PDO::FETCH_ASSOC);
-
-
-
 
 
 
@@ -111,6 +108,40 @@ if (isset($_POST['input_comment'])) {
   // スクリプトを終了する
   exit;
 }
+
+
+
+// いいね機能
+// POSTが来ていたら
+if (isset($_POST['like_comment_id'])) {
+  // 値を変数に代入
+  $like_comment_id = $_POST['like_comment_id'] ?? '';
+  // メンバーIDを取得
+  $member_id = $_SESSION['login_member']['id'] ?? '';
+
+  // いいね済みか確認
+  $sql_check = $pdo->prepare('SELECT id
+    FROM likes
+    WHERE member_id = ?
+    AND comment_id = ?
+  ');
+  $sql_check->execute([$member_id, $like_comment_id]);
+  $like_id = $sql_check->fetch(PDO::FETCH_ASSOC);
+  if($like_id) {
+    // DB削除
+    $sql_delete=$pdo->prepare('DELETE FROM likes WHERE member_id = ? AND comment_id = ?');
+    $sql_delete->execute([$member_id, $like_comment_id]);
+  } else {
+    // DB登録
+    $sql_add=$pdo->prepare('INSERT INTO likes VALUES(NULL, ?, ?)');
+    $sql_add->execute([$member_id, $like_comment_id]);
+  }
+  // スレッド詳細画面をリロード
+  header("Location: thread_detail.php?id={$thread_id}&page={$page}");
+  // スクリプトを終了する
+  exit;  
+}
+
 ?>
 
 <main>
@@ -179,6 +210,22 @@ if (isset($_POST['input_comment'])) {
           <p><?= htmlspecialchars($row['name_sei']). ' '. htmlspecialchars($row['name_mei']) ?></p>
           <p><?= date('Y.n.j G:i', strtotime($row['created_at'])) ?></p>
           <p><?= nl2br(htmlspecialchars($row['comment'])) ?></p>
+
+          <div>
+            <?php if (isset($_SESSION['login_member'])): ?>
+              <form action="" method="post">
+                  <input type="hidden" name="like_comment_id" value="<?= $row['id'] ?>">
+                  <button class="like-button">
+                      👍
+                  </button>
+              </form>
+            <?php else: ?>
+              <a href="member_regist.php" class="like-button">
+                  👍
+              </a>
+            <?php endif ?>
+            <p>いいね数</p>
+          </div>
           <hr>
         </div>
       <?php endforeach ?>

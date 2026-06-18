@@ -251,3 +251,23 @@ VALUES
 (5,3,'コメント機能やいいね機能もおすすめです。','2026-06-18 15:01:27','2026-06-18 15:01:27',NULL),
 (2,3,'完成まで作り切ることが一番大切だと思います。','2026-06-18 15:15:33','2026-06-18 15:15:33',NULL);
 
+
+-- ****************************************
+-- likesテーブル
+-- ****************************************
+CREATE TABLE likes (
+  id INT NOT NULL AUTO_INCREMENT COMMENT 'いいねID',
+  member_id INT NOT NULL COMMENT '会員ID',
+  comment_id INT NOT NULL COMMENT 'コメントID',
+  PRIMARY KEY (id)
+);
+
+INSERT INTO likes
+(member_id, comment_id)
+VALUES
+(3,1),
+(4,1),
+(3,2),
+(4,2),
+(5,2),
+(6,2);
