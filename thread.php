@@ -23,36 +23,39 @@ if (trim(mb_convert_kana($search_key, 's')) !== '') {
 ?>
 
 <main>
-  <header class="thread">
+  <header class="header_thread">
     <?php if (isset($_SESSION['login_member'])): ?>
       <div>
         <a href="thread_regist.php" class="button_a header_button_a">新規スレッド作成</a>   
       </div>
     <?php endif ?>
   </header>
-
-  <form action="thread.php" method="get">
-    <div>
-      <input type="text" name="search_key" placeholder="キーワードを入力">
-      <input type="submit" value="スレッド検索" />
-    </div>
-  </form>
-
-  <div>
-    <?php foreach ($sql as $row): ?>
+  
+  <div class="wrapper">
+    <form action="thread.php" method="get">
       <div>
-        <p>ID:<?= $row['id'] ?></p>
-        <p>
-        <a href="thread_detail.php?id=<?= $row['id'] ?>">
-          <?= htmlspecialchars($row['title']) ?></p>
-        </a> 
-        <p><?= date('Y.n.j G:i', strtotime($row['created_at'])) ?></p>
+        <input type="text" name="search_key" placeholder="キーワードを入力">
+        <input type="submit" value="スレッド検索" />
       </div>
-    <?php endforeach ?>
-  </div>
+    </form>
 
-  <div class="center_div">
-    <a href="index.php" class="button_a">トップに戻る</a>    
+    <div>
+      <?php foreach ($sql as $row): ?>
+        <div>
+          <p>ID:<?= $row['id'] ?></p>
+          <p>
+            <a href="thread_detail.php?id=<?= $row['id'] ?>">
+              <?= htmlspecialchars($row['title']) ?>
+            </a>
+          </p>
+          <p><?= date('Y.n.j G:i', strtotime($row['created_at'])) ?></p>
+        </div>
+      <?php endforeach ?>
+    </div>
+
+    <div class="center_div">
+      <a href="index.php" class="button_a">トップに戻る</a>    
+    </div>
   </div>
 </main>
 

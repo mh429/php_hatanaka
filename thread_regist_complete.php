@@ -42,7 +42,7 @@ if (!empty($errors)) {
   $_SESSION['thread_regist']['errors'] = $errors;
   // 作成画面に戻す
   header('Location: thread_regist.php');
-  // スクリプトを修了する
+  // スクリプトを終了する
   exit;
 }
 

@@ -43,38 +43,39 @@ if (!empty($errors)) {
   $_SESSION['thread_regist']['errors'] = $errors;
   // 作成画面に戻す
   header('Location: thread_regist.php');
-  // スクリプトを修了する
+  // スクリプトを終了する
   exit;
 }
 ?>
 
 <main>
-	<h1>スレッド作成確認画面</h1>
-	
-  <div class="tr_container">
-    <table class="tr_confirmTable">
-      <tbody>
-        <tr>
-          <th>スレッドタイトル</th>
-          <td><?php echo htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?></td>
-        </tr>
-        <tr>
-          <th>コメント</th>
-          <td><?php echo nl2br(htmlspecialchars($content, ENT_QUOTES, 'UTF-8')) ?></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="wrapper">
+    <h1>スレッド作成確認画面</h1>
+    
+    <div class="tr_container">
+      <table class="tr_confirmTable">
+        <tbody>
+          <tr>
+            <th>スレッドタイトル</th>
+            <td><?php echo htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?></td>
+          </tr>
+          <tr>
+            <th>コメント</th>
+            <td><?php echo nl2br(htmlspecialchars($content, ENT_QUOTES, 'UTF-8')) ?></td>
+          </tr>
+        </tbody>
+      </table>
 
-    <form action="thread_regist_complete.php" method="post">
+      <form action="thread_regist_complete.php" method="post">
+        <div class="center_div">
+          <input type="submit" value="スレッドを作成する">
+        </div>
+      </form>
       <div class="center_div">
-        <input type="submit" value="スレッドを作成する">
+        <a href="thread_regist.php" class="button_a">前に戻る</a>    
       </div>
-    </form>
-    <div class="center_div">
-      <a href="thread_regist.php" class="button_a">前に戻る</a>    
-    </div>
-  </div>    
-  
+    </div>    
+  </div>
 </main>
 
 <?php require_once './layout/footer.php' ?>

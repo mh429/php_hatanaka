@@ -88,7 +88,7 @@ if (!empty($errors)) {
   $_SESSION['member_regist']['errors'] = $errors;
   // 登録画面に戻す
   header('Location: member_regist.php');
-  // スクリプトを修了する
+  // スクリプトを終了する
   exit;
 }
 
@@ -111,12 +111,14 @@ unset($_SESSION['member_regist']);
 ?>
 
 <main>
-	<h1><?php echo $message_h1 ?></h1>
-  <div class="mr_container">
-	  <p class="center_p"><?php echo $message_p ?></p>
-  </div>
-  <div class="center_div">
-    <a href="index.php" class="button_a button_a_blue">トップに戻る</a>    
+  <div class="wrapper">
+    <h1><?php echo $message_h1 ?></h1>
+    <div class="mr_container">
+      <p class="center_p"><?php echo $message_p ?></p>
+    </div>
+    <div class="center_div">
+      <a href="index.php" class="button_a button_a_blue">トップに戻る</a>    
+    </div>
   </div>
 </main>
 
