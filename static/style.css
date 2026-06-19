@@ -231,7 +231,61 @@ header {
 .header_thread {
   justify-content: end;
 }
+.search_input {
+  width: 300px;
+  height: 31px;
+  padding: 0 5px;
+  border: 2px solid #000;
+  border-radius: 0px;
+}
+.search_input:focus {
+  border-radius: 0px;
+}
+input[type="submit"].search_button {
+  width: 130px;
+  color: #000;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 0px;
+}
+input[type="submit"].search_button:hover {
+  background-color: #e9e9e9;
+}
+.search_wrapper {
+  margin: 0 auto;
+}
+.thread_ul {
+  list-style-type: none;
+  padding: 50px 0;
+  color: #0000EE;
+}
+.thread_ul a {
+  text-decoration: none;
+}
+.thread_ul a:hover {
+  text-decoration: underline;
+}
+.thread_ul a:visited {
+  color: #0000EE;
+}
+.thread_li {
+  display: grid;
+  grid-template-columns: 50px 1fr 200px;
+}
 /* スレッド詳細画面 */
+.td_title {
+  width: 400px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+.td_title h2 {
+  text-align: center;
+}
+.td_title_bottom {
+  display: flex;
+  justify-content: end;
+  gap: 30px;
+}
 .thread_nav {
   width: 100%;
   padding: 0 20px;
@@ -239,6 +293,74 @@ header {
   display: flex;
   justify-content: space-between;
 }
+.thread_nav a {
+  color: #000;
+  text-decoration: none;
+}
 .disabled{
   color: gray;
+}
+.thread_contents {
+  width: 500px;
+  margin: 20px auto;
+  color: #0000EE;
+  padding: 10px;
+  border: 1px solid #0000EE;
+  border-radius: 10px;
+}
+.thread_contents_top {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 5px;
+}
+.thread_contents_content {
+  word-break: break-all;
+}
+.thread_detail_ol {
+  width: 480px;
+  margin: 0 auto;
+  list-style-position: inside;
+}
+.comment_time {
+  padding-left: 5px;
+}
+.thread_detail_comment {
+  word-break: break-all;
+}
+.like_wrapper {
+  width: 400px;
+  display: flex;
+  justify-content: end;
+  gap: 5px;
+}
+.like_wrapper button {
+  border: none;
+  background-color: rgba(255,255,255,0);
+}
+.heart {
+  width:20px;
+  margin-top: 3px;
+}
+.comment_form_wrapper {
+  width: 480px;
+  margin: 20px auto 0;
+}
+.comment_textarea {
+  width: 480px;
+  height: 100px;
+  border: 2px solid #000;
+  border-radius: 0px;
+  padding: 5px;
+}
+.comment_error {
+  color: red;
+  font-size: 14px;
+}
+.comment_button_wrapper {
+  display: flex;
+  justify-content: end;
+  margin-top: 5px;
+}
+input[type="submit"].comment_send_button {
+  width: 130px;
 }

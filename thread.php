@@ -32,22 +32,22 @@ if (trim(mb_convert_kana($search_key, 's'))) {
   </header>
   
   <div class="wrapper">
+    <div class="tr_container">
+    
     <form action="thread.php" method="get">
-      <div>
-        <input type="text" name="search_key" 
+      <div class="center_div">
+        <input type="text" name="search_key" class="search_input"
         <?php if (trim(mb_convert_kana($search_key, 's'))): ?>
           value = "<?= $search_key ?>"
-        <?php else: ?>
-          placeholder="キーワードを入力"
         <?php endif ?>           
         >
-        <input type="submit" value="スレッド検索" />
+        <input type="submit" value="スレッド検索" class="search_button">
       </div>
     </form>
 
-    <ul>
+    <ul class="thread_ul">
       <?php foreach ($sql as $row): ?>
-        <li>
+        <li class="thread_li">
           <p>ID:<?= $row['id'] ?></p>
           <p>
             <a href="thread_detail.php?id=<?= $row['id'] ?>&page=1">
@@ -61,6 +61,8 @@ if (trim(mb_convert_kana($search_key, 's'))) {
 
     <div class="center_div">
       <a href="index.php" class="button_a">トップに戻る</a>    
+    </div>
+
     </div>
   </div>
 </main>

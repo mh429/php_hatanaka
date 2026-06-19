@@ -144,12 +144,14 @@ if (isset($_POST['like_comment_id'])) {
   </header>
 
   <div class="wrapper">
-    <div>
+    <div class="td_title">
       <h2><?= htmlspecialchars($thread_info['title']) ?></h2>
-      <p><?= $total_comments ?>コメント</p>
-      <time datetime="<?= date('c', strtotime($thread_info['created_at'])) ?>">
-        <?= date('Y/n/j G:i', strtotime($thread_info['created_at'])) ?>
-      </time>
+      <div class="td_title_bottom">
+        <p><?= $total_comments ?>コメント</p>
+        <time datetime="<?= date('c', strtotime($thread_info['created_at'])) ?>">
+          <?= date('Y/n/j G:i', strtotime($thread_info['created_at'])) ?>
+        </time>
+      </div>
     </div>
 
     <nav class="thread_nav">
@@ -181,39 +183,44 @@ if (isset($_POST['like_comment_id'])) {
       </div>
     </nav>
 
-    <div>
-      <div>
+    <div class="thread_contents">
+      <div class="thread_contents_top">
         <p>投稿者:<?= htmlspecialchars($thread_info['name_sei']). ' '. htmlspecialchars($thread_info['name_mei']) ?></p>
-        <p><?= date('Y.n.j G:i', strtotime($thread_info['created_at'])) ?></p>
+        <time datetime="<?= date('c', strtotime($thread_info['created_at'])) ?>">
+          <?= date('Y.n.j G:i', strtotime($thread_info['created_at'])) ?>
+        </time>
       </div>
-      <div>
+      <div class="thread_contents_content">
         <?= nl2br(htmlspecialchars($thread_info['content'])) ?>
       </div>
     </div>
 
-
-
-    <ol start="<?= $offset + 1 ?>">
+    <ol start="<?= $offset + 1 ?>" class="thread_detail_ol">
       <?php $comment_number = $offset; ?>
       <?php foreach ($comments as $row): ?>
         <li>
-          <p><?= htmlspecialchars($row['name_sei']). ' '. htmlspecialchars($row['name_mei']) ?></p>
-          <p><?= date('Y.n.j G:i', strtotime($row['created_at'])) ?></p>
-          <p><?= nl2br(htmlspecialchars($row['comment'])) ?></p>
+          <?= htmlspecialchars($row['name_sei']). ' '. htmlspecialchars($row['name_mei']) ?>
+          <time class="comment_time" datetime="<?= date('c', strtotime($row['created_at'])) ?>">
+            <?= date('Y.n.j G:i', strtotime($row['created_at'])) ?>
+          </time>
+          
+          <p class="thread_detail_comment"><?= nl2br(htmlspecialchars($row['comment'])) ?></p>
 
-          <div>
+          <div class="like_wrapper">
             <?php if (isset($_SESSION['login_member'])): ?>
               <form action="" method="post">
-                  <input type="hidden" name="like_comment_id" value="<?= $row['id'] ?>">
+                <input type="hidden" name="like_comment_id" value="<?= $row['id'] ?>">
+                <button type="submit">
                   <?php if (in_array($row['id'], $liked_comment_ids)): ?>
-                      <button class="liked">♥</button>
-                  <?php else: ?>
-                      <button class="not-liked">♡</button>
+                    <svg class="heart" viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                  <?php else: ?>         
+                    <svg class="heart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                   <?php endif ?>
+                </button>
               </form>
             <?php else: ?>
               <a href="member_regist.php" class="like-button">
-                  ♡
+                <svg class="heart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
               </a>
             <?php endif ?>
             <p><?= $row['like_count'] ?></p>
@@ -254,14 +261,16 @@ if (isset($_POST['like_comment_id'])) {
 
     <?php if (isset($_SESSION['login_member'])): ?>
       <form action="" method="post">
-        <div>
-          <textarea name="input_comment"><?= htmlspecialchars($comment, ENT_QUOTES, 'UTF-8') ?></textarea>
-          <input type="submit" value="コメントする">
-					<div class="mr-errors">
+        <div class="comment_form_wrapper">
+          <textarea name="input_comment" class="comment_textarea"><?= htmlspecialchars($comment, ENT_QUOTES, 'UTF-8') ?></textarea>
+					<div class="comment_error">
 						<?php if (isset($error_message)): ?>
 							<p><?= $error_message ?></p>
 						<?php endif ?>
-					</div>
+					</div>          
+          <div class="comment_button_wrapper">
+            <input type="submit" value="コメントする" class="comment_send_button">            
+          </div>
         </div>      
       </form>
     <?php endif ?>
