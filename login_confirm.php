@@ -25,7 +25,7 @@ if (trim(mb_convert_kana($password, 's')) === '') {
   $isError = true;
 }
 if (!$isError) {
-  $sql = $pdo->prepare('SELECT * FROM members WHERE email = ?');
+  $sql = $pdo->prepare('SELECT * FROM members WHERE email = ? AND deleted_at IS NULL');
   $sql->execute([$email]);
   $row = $sql->fetch(PDO::FETCH_ASSOC);
 

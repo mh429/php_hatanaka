@@ -29,6 +29,14 @@ $name_mei = $_SESSION['login_member']['name_mei'] ?? '';
   </header>
 
   <h1 class="topLogo">〇〇掲示板</h1>
+
+  <?php if (isset($_SESSION['login_member'])): ?>
+    <footer>
+      <div>
+        <a href="member_withdrawal.php" class="button_a footer_button_a">退会</a> 
+      </div>
+    </footer>
+  <?php endif ?>
 </main>
 
 <?php require_once './layout/footer.php' ?>
