@@ -3,8 +3,17 @@
 
 <?php 
 // URLパラメータの受取
-$thread_id = $_REQUEST['id'] ?? '';
+$thread_id = $_REQUEST['id'] ?? 1;
+$page = $_REQUEST['page'] ?? 1;
 
+// 値をセッションから取得
+$member_id = $_SESSION['login_member']['id'] ?? '';
+$comment = $_SESSION['comment'][$thread_id]['comment'] ?? '';
+$error_message = $_SESSION['comment'][$thread_id]['error_message'] ?? '';
+
+/***********************************************************************
+ *** スレッド
+ ***********************************************************************/
 // スレッド情報の取得
 $sql = $pdo->prepare(
   'SELECT threads.title, threads.content, threads.created_at, members.name_sei, members.name_mei
@@ -16,31 +25,17 @@ $sql = $pdo->prepare(
 $sql->execute([$thread_id]);
 $thread_info = $sql->fetch(PDO::FETCH_ASSOC);
 
-// コメントの取得
-// $comment_sql = $pdo->prepare(
-//   'SELECT comments.id, comments.comment, comments.created_at, members.name_sei, members.name_mei
-//   FROM comments
-//   JOIN members
-//   ON comments.member_id = members.id
-//   WHERE comments.thread_id = ?
-//   ORDER BY created_at ASC'
-//   );
-// $comment_sql->execute([$thread_id]);
-// // PDOStatement オブジェクトを配列に変換
-// $comments = $comment_sql->fetchAll(PDO::FETCH_ASSOC);
-
+/***********************************************************************
+ *** コメント
+ ***********************************************************************/
 // 総コメント数の取得
 $count_sql = $pdo->prepare(
   'SELECT COUNT(*)
-    FROM comments
-    WHERE thread_id = ?'
+  FROM comments
+  WHERE thread_id = ?'
 );
 $count_sql->execute([$thread_id]);
 $total_comments = $count_sql->fetchColumn();
-
-// 現在のページ番号
-$page = $_GET['page'] ?? 1;
-$page = max(1, (int)$page);
 
 // 1ページのコメント数
 $per_page = 5;
@@ -50,16 +45,22 @@ $total_pages = ceil($total_comments / $per_page);
 $offset = ($page - 1) * $per_page;
 // SQL作る
 $comment_sql = $pdo->prepare(
-  'SELECT comments.id, comments.comment, comments.created_at, members.name_sei, members.name_mei
+  'SELECT
+    comments.id, comments.comment, comments.created_at,
+    members.name_sei, members.name_mei,
+    COUNT(likes.id) AS like_count
   FROM comments
   JOIN members
   ON comments.member_id = members.id
+  LEFT JOIN likes
+  ON comments.id = likes.comment_id
   WHERE comments.thread_id = ?
+  GROUP BY comments.id
   ORDER BY comments.created_at ASC
   LIMIT ?
   OFFSET ?'
 );
-// ？に入れる
+// LIMITやOFFSETは文字列だとエラーになるので、INT型を指定して？に入れる
 $comment_sql->bindValue(1, $thread_id, PDO::PARAM_INT);
 $comment_sql->bindValue(2, $per_page, PDO::PARAM_INT);
 $comment_sql->bindValue(3, $offset, PDO::PARAM_INT);
@@ -67,14 +68,18 @@ $comment_sql->bindValue(3, $offset, PDO::PARAM_INT);
 $comment_sql->execute();
 $comments = $comment_sql->fetchAll(PDO::FETCH_ASSOC);
 
+// いいね済みコメントIDの配列を取得
+$sql_isLike = $pdo->prepare(
+  'SELECT comment_id
+    FROM likes
+    WHERE member_id = ?'
+);
+$sql_isLike->execute([$member_id]);
+$liked_comment_ids = $sql_isLike->fetchAll(PDO::FETCH_COLUMN);
 
-
-
-// コメント投稿機能
-// 値をセッションから取得
-$comment = $_SESSION['comment'][$thread_id]['comment'] ?? '';
-$error_message = $_SESSION['comment'][$thread_id]['error_message'] ?? '';
-// POSTが来ていたら
+/***********************************************************************
+ *** コメント投稿
+ ***********************************************************************/
 if (isset($_POST['input_comment'])) {
   // 値を変数に代入
   $input_comment = $_POST['input_comment'] ?? '';
@@ -109,25 +114,13 @@ if (isset($_POST['input_comment'])) {
   exit;
 }
 
-
-
-// いいね機能
-// POSTが来ていたら
+/***********************************************************************
+ *** いいねトグル
+ ***********************************************************************/
 if (isset($_POST['like_comment_id'])) {
   // 値を変数に代入
   $like_comment_id = $_POST['like_comment_id'] ?? '';
-  // メンバーIDを取得
-  $member_id = $_SESSION['login_member']['id'] ?? '';
-
-  // いいね済みか確認
-  $sql_check = $pdo->prepare('SELECT id
-    FROM likes
-    WHERE member_id = ?
-    AND comment_id = ?
-  ');
-  $sql_check->execute([$member_id, $like_comment_id]);
-  $like_id = $sql_check->fetch(PDO::FETCH_ASSOC);
-  if($like_id) {
+  if (in_array($like_comment_id, $liked_comment_ids)) {
     // DB削除
     $sql_delete=$pdo->prepare('DELETE FROM likes WHERE member_id = ? AND comment_id = ?');
     $sql_delete->execute([$member_id, $like_comment_id]);
@@ -141,7 +134,6 @@ if (isset($_POST['like_comment_id'])) {
   // スクリプトを終了する
   exit;  
 }
-
 ?>
 
 <main>
@@ -201,12 +193,10 @@ if (isset($_POST['like_comment_id'])) {
 
 
 
-    <div>
+    <ol start="<?= $offset + 1 ?>">
       <?php $comment_number = $offset; ?>
       <?php foreach ($comments as $row): ?>
-        <?php $comment_number++; ?>        
-        <div>
-          <p><?= $comment_number ?>.</p>
+        <li>
           <p><?= htmlspecialchars($row['name_sei']). ' '. htmlspecialchars($row['name_mei']) ?></p>
           <p><?= date('Y.n.j G:i', strtotime($row['created_at'])) ?></p>
           <p><?= nl2br(htmlspecialchars($row['comment'])) ?></p>
@@ -215,21 +205,23 @@ if (isset($_POST['like_comment_id'])) {
             <?php if (isset($_SESSION['login_member'])): ?>
               <form action="" method="post">
                   <input type="hidden" name="like_comment_id" value="<?= $row['id'] ?>">
-                  <button class="like-button">
-                      👍
-                  </button>
+                  <?php if (in_array($row['id'], $liked_comment_ids)): ?>
+                      <button class="liked">♥</button>
+                  <?php else: ?>
+                      <button class="not-liked">♡</button>
+                  <?php endif ?>
               </form>
             <?php else: ?>
               <a href="member_regist.php" class="like-button">
-                  👍
+                  ♡
               </a>
             <?php endif ?>
-            <p>いいね数</p>
+            <p><?= $row['like_count'] ?></p>
           </div>
           <hr>
-        </div>
+        </li>
       <?php endforeach ?>
-    </div>
+    </ol>
 
     <nav class="thread_nav">
       <div>

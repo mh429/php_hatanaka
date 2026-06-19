@@ -3,6 +3,7 @@
 
 <?php 
 $search_key = $_GET['search_key'] ?? '';
+$thread_search_key = $_SESSION['thread_search_key'] ?? '';
 
 if (trim(mb_convert_kana($search_key, 's')) !== '') {
   $keyword = "%{$search_key}%";
@@ -12,13 +13,17 @@ if (trim(mb_convert_kana($search_key, 's')) !== '') {
     OR content LIKE ?
     ORDER BY created_at DESC'
   );
-  $sql->execute([$keyword, $keyword]);  
+  $sql->execute([$keyword, $keyword]); 
+  // 検索キーをセッションに保存
+  $_SESSION['thread_search_key'] = $search_key;
 } else {
   $sql = $pdo->query(
     'SELECT id, title, created_at 
     FROM threads 
     ORDER BY created_at DESC'
     );
+  // 検索キーをセッションから削除
+  unset($_SESSION['thread_search_key']);
 }
 ?>
 
@@ -34,14 +39,14 @@ if (trim(mb_convert_kana($search_key, 's')) !== '') {
   <div class="wrapper">
     <form action="thread.php" method="get">
       <div>
-        <input type="text" name="search_key" placeholder="キーワードを入力">
+        <input type="text" name="search_key" value="<?= $thread_search_key ?>">
         <input type="submit" value="スレッド検索" />
       </div>
     </form>
 
-    <div>
+    <ul>
       <?php foreach ($sql as $row): ?>
-        <div>
+        <li>
           <p>ID:<?= $row['id'] ?></p>
           <p>
             <a href="thread_detail.php?id=<?= $row['id'] ?>&page=1">
@@ -49,9 +54,9 @@ if (trim(mb_convert_kana($search_key, 's')) !== '') {
             </a>
           </p>
           <p><?= date('Y.n.j G:i', strtotime($row['created_at'])) ?></p>
-        </div>
+        </li>
       <?php endforeach ?>
-    </div>
+    </ul>
 
     <div class="center_div">
       <a href="index.php" class="button_a">トップに戻る</a>    
