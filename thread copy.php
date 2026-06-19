@@ -4,7 +4,7 @@
 <?php 
 $search_key = $_GET['search_key'] ?? '';
 
-if (trim(mb_convert_kana($search_key, 's'))) {
+if (trim(mb_convert_kana($search_key, 's')) !== '') {
   $keyword = "%{$search_key}%";
   $sql = $pdo->prepare(
     'SELECT id, title, created_at FROM threads 
@@ -12,13 +12,13 @@ if (trim(mb_convert_kana($search_key, 's'))) {
     OR content LIKE ?
     ORDER BY created_at DESC'
   );
-  $sql->execute([$keyword, $keyword]);
+  $sql->execute([$keyword, $keyword]);  
 } else {
   $sql = $pdo->query(
     'SELECT id, title, created_at 
     FROM threads 
     ORDER BY created_at DESC'
-  );
+    );
 }
 ?>
 
@@ -34,13 +34,7 @@ if (trim(mb_convert_kana($search_key, 's'))) {
   <div class="wrapper">
     <form action="thread.php" method="get">
       <div>
-        <input type="text" name="search_key" 
-        <?php if (trim(mb_convert_kana($search_key, 's'))): ?>
-          value = "<?= $search_key ?>"
-        <?php else: ?>
-          placeholder="キーワードを入力"
-        <?php endif ?>           
-        >
+        <input type="text" name="search_key" placeholder="キーワードを入力">
         <input type="submit" value="スレッド検索" />
       </div>
     </form>
@@ -66,3 +60,38 @@ if (trim(mb_convert_kana($search_key, 's'))) {
 </main>
 
 <?php require_once './layout/footer.php' ?>
+
+
+
+
+<?php 
+$search_key = $_GET['search_key'] ?? '';
+
+if (trim(mb_convert_kana($search_key, 's')) !== '') {
+  $keyword = "%{$search_key}%";
+  $sql = $pdo->prepare(
+    'SELECT id, title, created_at FROM threads 
+    WHERE title LIKE ?
+    OR content LIKE ?
+    ORDER BY created_at DESC'
+  );
+  $sql->execute([$keyword, $keyword]);
+  $_SESSION['thread_search_key'] = $search_key;
+} else if (isset($_SESSION['thread_search_key'])) {
+  $thread_search_key = $_SESSION['thread_search_key'];
+  $keyword = "%{$thread_search_key}%";
+  $sql = $pdo->prepare(
+    'SELECT id, title, created_at FROM threads 
+    WHERE title LIKE ?
+    OR content LIKE ?
+    ORDER BY created_at DESC'
+  );
+  $sql->execute([$keyword, $keyword]);  
+} else {
+  $sql = $pdo->query(
+    'SELECT id, title, created_at 
+    FROM threads 
+    ORDER BY created_at DESC'
+    );
+}
+?>
