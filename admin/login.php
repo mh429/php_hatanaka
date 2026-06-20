@@ -14,7 +14,7 @@ $error_message = $_SESSION['admin_login_input']['error_message'] ?? '';
 ?>
 
 <main>
-  <header>
+  <header class="header_admin">
   </header>
 
 	<div class="wrapper">
@@ -48,7 +48,7 @@ $error_message = $_SESSION['admin_login_input']['error_message'] ?? '';
 		</div>
 	</div>
 
-	<footer>
+	<footer class="footer_admin">
 	</footer>	
 </main>
 

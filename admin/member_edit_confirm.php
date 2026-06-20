@@ -116,7 +116,7 @@ if (!empty($errors)) {
 ?>
 
 <main>
-  <header>
+  <header class="header_admin">
       <div>
         <p>会員編集</p>
       </div>

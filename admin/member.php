@@ -18,7 +18,7 @@ $page = $_REQUEST['page'] ?? 1;
 
 // 検索フォーム
 $search_id = $_GET['search_id'] ?? '';
-$search_gender = $_GET['search_gender'] ?? '';
+$search_gender = $_GET['search_gender'] ?? [];
 $search_pref_name = $_GET['search_pref_name'] ?? '';
 $search_freeword = $_GET['search_freeword'] ?? '';
 
@@ -46,9 +46,9 @@ if ($search_id !== '') {
   $where .= ' AND id = ?';
   $params[] = $search_id;
 }
-if ($search_gender !== '') {
+if (count($search_gender) === 1) {
   $where .= ' AND gender = ?';
-  $params[] = $search_gender;
+  $params[] = $search_gender[0];
 }
 if ($search_pref_name !== '') {
   $where .= ' AND pref_name = ?';
@@ -72,7 +72,8 @@ if ($search_freeword !== '') {
  *** 総件数取得
  ***********************************************************************/
 $count_sql = 'SELECT COUNT(*) FROM members' . $where;
-// ???の状態
+// ?が沢山入ったSQL
+// stmtはステートメント（命令）の略
 $stmt_count = $pdo->prepare($count_sql);
 // paramsの配列を入れて実行
 $stmt_count->execute($params);
@@ -101,7 +102,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 
 /***********************************************************************
- *** ページャー用の配列
+ *** ページャー用
  ***********************************************************************/
 $query = [
   'search_id' => $search_id,
@@ -111,10 +112,26 @@ $query = [
   'sort' => $_GET['sort'] ?? 'id',
   'order' => $_GET['order'] ?? 'desc'
 ];
+
+$start_page = max(1, $page - 1);
+$end_page = min($total_pages, $page + 1);
+// 1ページ目付近なら 1,2,3
+if ($page <= 2) {
+  $start_page = 1;
+  $end_page = min(3, $total_pages);
+}
+// 最終ページ付近なら 7,8,9
+if ($page >= $total_pages - 1) {
+  $start_page = max(1, $total_pages - 2);
+  $end_page = $total_pages;
+}
+
+
+
 ?>
 
 <main>
-  <header>
+  <header class="header_admin">
       <div>
         <p>会員一覧</p>
       </div>
@@ -138,7 +155,7 @@ $query = [
         <div>
           <?php foreach ($gender_list as $key => $value): ?>
             <label>
-              <input type="checkbox" name="search_gender" value="<?php echo $key ?>">
+              <input type="checkbox" name="search_gender[]" value="<?php echo $key ?>">
               <?php echo $value ?>
             </label>
           <?php endforeach ?>			
@@ -159,7 +176,7 @@ $query = [
           <input type="text" name="search_freeword">
         </div>
       </div>
-      <input type="submit" value="検索する">
+      <input type="submit" value="検索する" class="admin_search_button">
     </form>
 
     <div>
@@ -175,7 +192,7 @@ $query = [
                 'sort' => 'id',
                 'order' => $sort === 'id' && $order === 'DESC' ? 'asc' : 'desc'
               ]) ?>">
-                ID
+                ID▼
               </a>
             </th>
             <th>氏名</th>
@@ -190,7 +207,7 @@ $query = [
                 'sort' => 'created_at',
                 'order' => $sort === 'created_at' && $order === 'ASC' ? 'desc' : 'asc'
               ]) ?>">
-                登録日時
+                登録日時▼
               </a>
             </th>
             <th>編集</th>
@@ -202,7 +219,7 @@ $query = [
             <tr>
               <td><?= $row['id'] ?></td>
               <td><a href="./member_detail.php?id=<?= $row['id'] ?>">
-                <?= htmlspecialchars($row['name_sei']).' '.htmlspecialchars($row['name_mei']) ?>
+                <?= htmlspecialchars($row['name_sei'].'　'.$row['name_mei']) ?>
               </a></td>
               <td><?= $gender_list[$row['gender']] ?? '' ?></td>
               <td><?= $row['pref_name'].$row['address'] ?></td>
@@ -219,19 +236,36 @@ $query = [
       </table>
     </div>
 
-    <nav class="thread_nav">
-    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-
-      <?php if ($i == $page): ?>
-        <span><?= $i ?></span>
-      <?php else: ?>
-        <a href="?<?= http_build_query(array_merge($query, ['page' => $i])) ?>">
-          <?= $i ?>
+    <nav class="member_nav">
+      <?php if ($page > 1): ?>
+        <a href="?<?= http_build_query(array_merge($query, ['page' => $page - 1])) ?>">
+          <p class="prev_next">前へ&gt;</p>
         </a>
+      <?php else: ?>
+        <p class="dummy"></p>
       <?php endif ?>
 
-    <?php endfor ?>
+      <div class="pages">
+        <?php for ($i = $start_page; $i <= $end_page; $i++): ?>
+          <?php if ($i == $page): ?>
+            <p class="page selected_page"><?= $i ?></p>
+          <?php else: ?>
+            <a href="?<?= http_build_query(array_merge($query, ['page' => $i])) ?>">
+              <p class="page"><?= $i ?></p>
+            </a>
+          <?php endif ?>
+        <?php endfor ?>
+      </div>
+
+      <?php if ($page < $total_pages): ?>
+        <a href="?<?= http_build_query(array_merge($query, ['page' => $page + 1])) ?>">
+          <p class="prev_next">次へ&gt;</p>
+        </a>
+      <?php else: ?>
+        <p class="dummy"></p>
+      <?php endif ?>
     </nav>
+
 
     </div>
   </div>

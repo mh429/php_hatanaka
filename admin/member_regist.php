@@ -20,7 +20,7 @@ $errors= $_SESSION['member_regist_byadmin']['errors'] ?? '';
 ?>
 
 <main>
-  <header>
+  <header class="header_admin">
       <div>
         <p>会員登録</p>
       </div>

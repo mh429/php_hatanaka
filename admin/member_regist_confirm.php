@@ -119,7 +119,7 @@ if (!empty($errors)) {
 ?>
 
 <main>
-  <header>
+  <header class="header_admin">
       <div>
         <p>会員登録</p>
       </div>

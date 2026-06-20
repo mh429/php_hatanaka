@@ -35,7 +35,7 @@ $errors= $_SESSION['member_edit_byadmin'][$member_id]['errors'] ?? '';
 ?>
 
 <main>
-  <header>
+  <header class="header_admin">
       <div>
         <p>会員編集</p>
       </div>

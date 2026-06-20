@@ -13,7 +13,7 @@ $name = $_SESSION['login_admin']['name'] ?? '';
 ?>
 
 <main>
-  <header>
+  <header class="header_admin">
       <div>
         <p>掲示板管理画面メインメニュー</p>
       </div>

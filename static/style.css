@@ -97,6 +97,9 @@ header {
 .header_button_a:hover {
   background-color: rgba(255,255,255,0.3);
 }
+.header_admin {
+  background-color: #D8D8D8
+}
 
 /* フッター */
 footer {
@@ -117,6 +120,9 @@ footer {
 }
 .footer_button_a:hover {
   background-color: rgba(255,255,255,0.3);
+}
+.footer_admin {
+  background-color: #D8D8D8
 }
 
 
@@ -393,4 +399,54 @@ input[type="submit"].mw_submit {
   margin-top: 30px;
   width: 90px;
   padding: 5px 5px;
+}
+
+
+
+input[type="submit"].admin_search_button {
+  width: 130px;
+  background-color: #fff;
+  color: #16305e;
+  border: #16305e 1px solid;
+}
+input[type="submit"].admin_search_button:hover {
+  background-color: #e9e9e9;
+}
+
+.member_nav {
+  width: 220px;
+  height: 30px;
+  margin-left: 320px;
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  text-align: center;
+  color: #000;
+}
+.pages {
+  display: flex;
+}
+.member_nav a {
+  text-decoration: none;
+  color: #000;
+}
+.member_nav .prev_next {
+  width: 58px;
+  height: 24px;
+  border: 1px solid #000;
+  background-color: #fff;
+}
+.member_nav .dummy {
+  width: 58px;
+  height: 24px;
+}
+.member_nav .page {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #000;
+  background-color: #fff;
+}
+.member_nav .selected_page {
+  background-color: #666;
+  color: #fff;
 }

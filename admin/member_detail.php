@@ -31,7 +31,7 @@ $email = $member_info['email'];
 ?>
 
 <main>
-  <header>
+  <header class="header_admin">
       <div>
         <p>会員詳細</p>
       </div>

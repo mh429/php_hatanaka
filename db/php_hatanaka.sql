@@ -41,7 +41,7 @@ VALUES
 ('佐藤','花子',1,'大阪府','大阪市北区梅田1-2-3','pass0002','sato@example.com',NOW(),NOW(),NULL),
 ('鈴木','一郎',0,'愛知県','名古屋市中区栄2-1-1','pass0003','suzuki@example.com',NOW(),NOW(),NULL),
 ('高橋','美咲',1,'福岡県',NULL,'pass0004','takahashi@example.com',NOW(),NOW(),NULL),
-('田中','健',0,'北海道','札幌市中央区北1条','pass0005','tanaka@example.com',NOW(),NOW(),NULL);
+('田中','健',0,'北海道','札幌市中央区北1条','pass0005','tanaka@example.com',NOW(),NOW(),NULL),
 ('伊藤','優子',1,'京都府','京都市中京区河原町','pass0006','ito@example.com',NOW(),NOW(),NULL),
 ('渡辺','大輔',0,'兵庫県','神戸市中央区三宮町','pass0007','watanabe@example.com',NOW(),NOW(),NULL),
 ('中村','彩',1,'広島県',NULL,'pass0008','nakamura@example.com',NOW(),NOW(),NULL),
@@ -68,6 +68,61 @@ VALUES
 ('村上','悠人',0,'秋田県','秋田市中通','pass0029','murakami@example.com',NOW(),NOW(),NULL),
 ('近藤','里奈',1,'青森県','青森市新町','pass0030','kondo@example.com',NOW(),NOW(),NULL);
 
+INSERT INTO members
+(name_sei, name_mei, gender, pref_name, address, password, email, created_at, updated_at, deleted_at)
+VALUES
+('斎藤','拓海',0,'神奈川県','横浜市西区みなとみらい','pass0031','saito31@example.com',NOW(),NOW(),NULL),
+('坂本','美穂',1,'茨城県',NULL,'pass0032','sakamoto32@example.com',NOW(),NOW(),NULL),
+('遠藤','翔太',0,'栃木県','宇都宮市馬場通り','pass0033','endo33@example.com',NOW(),NOW(),NULL),
+('青木','由佳',1,'群馬県','前橋市本町','pass0034','aoki34@example.com',NOW(),NOW(),NULL),
+('藤井','直樹',0,'山梨県','甲府市中央','pass0035','fujii35@example.com',NOW(),NOW(),NULL),
+('西村','奈央',1,'和歌山県',NULL,'pass0036','nishimura36@example.com',NOW(),NOW(),NULL),
+('福田','大樹',0,'三重県','津市羽所町','pass0037','fukuda37@example.com',NOW(),NOW(),NULL),
+('太田','真由',1,'岐阜県','岐阜市神田町','pass0038','ota38@example.com',NOW(),NOW(),NULL),
+('三浦','健太',0,'島根県','松江市朝日町','pass0039','miura39@example.com',NOW(),NOW(),NULL),
+('藤原','美咲',1,'鳥取県',NULL,'pass0040','fujiwara40@example.com',NOW(),NOW(),NULL),
+('岡本','悠斗',0,'佐賀県','佐賀市駅前中央','pass0041','okamoto41@example.com',NOW(),NOW(),NULL),
+('松田','彩香',1,'長崎県','長崎市浜町','pass0042','matsuda42@example.com',NOW(),NOW(),NULL),
+('中川','健介',0,'大分県','大分市中央町','pass0043','nakagawa43@example.com',NOW(),NOW(),NULL),
+('原田','愛美',1,'宮崎県',NULL,'pass0044','harada44@example.com',NOW(),NOW(),NULL),
+('酒井','和真',0,'岩手県','盛岡市大通','pass0045','sakai45@example.com',NOW(),NOW(),NULL),
+('工藤','優奈',1,'福島県','福島市栄町','pass0046','kudo46@example.com',NOW(),NOW(),NULL),
+('横山','拓也',0,'東京都','渋谷区道玄坂','pass0047','yokoyama47@example.com',NOW(),NOW(),NULL),
+('宮本','結衣',1,'大阪府','大阪市中央区難波','pass0048','miyamoto48@example.com',NOW(),NOW(),NULL),
+('内田','亮太',0,'兵庫県',NULL,'pass0049','uchida49@example.com',NOW(),NOW(),NULL),
+('高田','玲奈',1,'京都府','京都市下京区四条通','pass0050','takada50@example.com',NOW(),NOW(),NULL),
+('安藤','翔',0,'愛知県','名古屋市中村区名駅','pass0051','ando51@example.com',NOW(),NOW(),NULL),
+('島田','美優',1,'福岡県','福岡市博多区博多駅前','pass0052','shimada52@example.com',NOW(),NOW(),NULL),
+('菅原','誠',0,'北海道',NULL,'pass0053','sugawara53@example.com',NOW(),NOW(),NULL),
+('久保','千尋',1,'静岡県','浜松市中央区砂山町','pass0054','kubo54@example.com',NOW(),NOW(),NULL),
+('平野','悠真',0,'埼玉県','川越市脇田町','pass0055','hirano55@example.com',NOW(),NOW(),NULL),
+('野口','美月',1,'千葉県','船橋市本町','pass0056','noguchi56@example.com',NOW(),NOW(),NULL),
+('杉山','航',0,'新潟県','新潟市中央区万代','pass0057','sugiyama57@example.com',NOW(),NOW(),NULL),
+('増田','杏奈',1,'長野県',NULL,'pass0058','masuda58@example.com',NOW(),NOW(),NULL),
+('小島','大和',0,'岡山県','岡山市北区本町','pass0059','kojima59@example.com',NOW(),NOW(),NULL),
+('大野','七海',1,'広島県','広島市中区紙屋町','pass0060','ono60@example.com',NOW(),NOW(),NULL);
+
+('古川','颯太',0,'熊本県','熊本市中央区上通町','pass0061','furukawa61@example.com',NOW(),NOW(),NULL),
+('上田','美琴',1,'鹿児島県',NULL,'pass0062','ueda62@example.com',NOW(),NOW(),NULL),
+('荒木','蓮',0,'沖縄県','那覇市牧志','pass0063','araki63@example.com',NOW(),NOW(),NULL),
+('石井','陽菜',1,'宮城県','仙台市青葉区中央','pass0064','ishii64@example.com',NOW(),NOW(),NULL),
+('竹内','湊',0,'滋賀県','草津市大路','pass0065','takeuchi65@example.com',NOW(),NOW(),NULL),
+('金子','美羽',1,'奈良県',NULL,'pass0066','kaneko66@example.com',NOW(),NOW(),NULL),
+('大塚','悠人',0,'香川県','高松市兵庫町','pass0067','otsuka67@example.com',NOW(),NOW(),NULL),
+('丸山','結菜',1,'愛媛県','松山市千舟町','pass0068','maruyama68@example.com',NOW(),NOW(),NULL),
+('柴田','陽斗',0,'高知県','高知市本町','pass0069','shibata69@example.com',NOW(),NOW(),NULL),
+('宮崎','葵',1,'徳島県',NULL,'pass0070','miyazaki70@example.com',NOW(),NOW(),NULL),
+
+('川口','駿',0,'石川県','金沢市片町','pass0071','kawaguchi71@example.com',NOW(),NOW(),NULL),
+('今井','美玲',1,'富山県','富山市桜町','pass0072','imai72@example.com',NOW(),NOW(),NULL),
+('浜田','悠斗',0,'福井県','福井市順化','pass0073','hamada73@example.com',NOW(),NOW(),NULL),
+('中尾','莉子',1,'山形県',NULL,'pass0074','nakao74@example.com',NOW(),NOW(),NULL),
+('谷口','海斗',0,'秋田県','秋田市大町','pass0075','taniguchi75@example.com',NOW(),NOW(),NULL),
+('平田','結愛',1,'青森県','青森市古川','pass0076','hirata76@example.com',NOW(),NOW(),NULL),
+('堀','大輝',0,'岩手県',NULL,'pass0077','hori77@example.com',NOW(),NOW(),NULL),
+('北村','優花',1,'福島県','郡山市駅前','pass0078','kitamura78@example.com',NOW(),NOW(),NULL),
+('川上','蒼',0,'神奈川県','川崎市川崎区駅前本町','pass0079','kawakami79@example.com',NOW(),NOW(),NULL),
+('吉岡','心春',1,'東京都',NULL,'pass0080','yoshioka80@example.com',NOW(),NOW(),NULL);
 
 -- ****************************************
 -- threadsテーブル
