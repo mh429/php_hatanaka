@@ -10,19 +10,103 @@ if (!isset($_SESSION['login_admin'])) {
 }
 ?>
 <?php 
-/***********************************************************************
- *** パラメータ取得
- ***********************************************************************/
-// ページ
+// URLパラメータの受取
 $page = $_REQUEST['page'] ?? 1;
 
-// 検索フォーム
+// 検索パラメータの受取
 $search_id = $_GET['search_id'] ?? '';
 $search_gender = $_GET['search_gender'] ?? '';
 $search_pref_name = $_GET['search_pref_name'] ?? '';
 $search_freeword = $_GET['search_freeword'] ?? '';
 
-// ソート順
+/***********************************************************************
+ *** 総数の取得
+ ***********************************************************************/
+$count_sql = '
+SELECT COUNT(*)
+FROM members
+WHERE deleted_at IS NULL
+';
+
+$params = [];
+
+if ($search_id !== '') {
+  $count_sql .= ' AND id = ?';
+  $params[] = $search_id;
+}
+if ($search_gender !== '') {
+  $count_sql .= ' AND gender = ?';
+  $params[] = $search_gender;
+}
+if ($search_pref_name !== '') {
+  $count_sql .= ' AND pref_name = ?';
+  $params[] = $search_pref_name;
+}
+if ($search_freeword !== '') {
+  $count_sql .= '
+    AND (
+      name_sei LIKE ?
+      OR name_mei LIKE ?
+      OR email LIKE ?
+    )
+  ';
+  $keyword = "%{$search_freeword}%";
+  $params[] = $keyword;
+  $params[] = $keyword;
+  $params[] = $keyword;
+}
+
+$count_sql = $pdo->prepare($count_sql);
+
+$count_sql->execute($params);
+$total_info = $count_sql->fetchColumn();
+
+// 1ページの表示数
+$per_page = 10;
+// 総ページ数
+$total_pages = ceil($total_info / $per_page);
+// 各ページで何件目から取得するか
+$offset = ($page - 1) * $per_page;
+
+/***********************************************************************
+ *** 会員情報の取得
+ ***********************************************************************/
+$sql = '
+SELECT id, name_sei, name_mei, gender, pref_name, address, created_at
+FROM members
+WHERE deleted_at IS NULL
+';
+
+$params2 = [];
+
+if ($search_id !== '') {
+  $sql .= ' AND id = ?';
+  $params2[] = $search_id;
+}
+if ($search_gender !== '') {
+  $sql .= ' AND gender = ?';
+  $params2[] = $search_gender;
+}
+if ($search_pref_name !== '') {
+  $sql .= ' AND pref_name = ?';
+  $params2[] = $search_pref_name;
+}
+if ($search_freeword !== '') {
+  $sql .= '
+    AND (
+      name_sei LIKE ?
+      OR name_mei LIKE ?
+      OR email LIKE ?
+    )
+  ';
+  $keyword = "%{$search_freeword}%";
+  $params2[] = $keyword;
+  $params2[] = $keyword;
+  $params2[] = $keyword;
+}
+
+
+// URLパラメータの受取
 $sort = $_GET['sort'] ?? 'id';
 $order = $_GET['order'] ?? 'desc';
 // リストで変換（SQLインジェクションの危険があるので、許可する値を限定）
@@ -37,80 +121,12 @@ $order_list = [
 $sort = $sort_list[$sort] ?? 'id';
 $order = $order_list[$order] ?? 'DESC';
 
-/***********************************************************************
- *** 共通SQL（WHERE部分）
- ***********************************************************************/
-$where = ' WHERE deleted_at IS NULL ';
-$params = [];
-if ($search_id !== '') {
-  $where .= ' AND id = ?';
-  $params[] = $search_id;
-}
-if ($search_gender !== '') {
-  $where .= ' AND gender = ?';
-  $params[] = $search_gender;
-}
-if ($search_pref_name !== '') {
-  $where .= ' AND pref_name = ?';
-  $params[] = $search_pref_name;
-}
-if ($search_freeword !== '') {
-  $where .= '
-    AND (
-      name_sei LIKE ?
-      OR name_mei LIKE ?
-      OR email LIKE ?
-    )
-  ';
-  $keyword = "%{$search_freeword}%";
-  $params[] = $keyword;
-  $params[] = $keyword;
-  $params[] = $keyword;
-}
-
-/***********************************************************************
- *** 総件数取得
- ***********************************************************************/
-$count_sql = 'SELECT COUNT(*) FROM members' . $where;
-// ???の状態
-$stmt_count = $pdo->prepare($count_sql);
-// paramsの配列を入れて実行
-$stmt_count->execute($params);
-// 総数を取得
-$total_info = $stmt_count->fetchColumn();
-
-// 1ページの表示数
-$per_page = 10;
-// 総ページ数
-$total_pages = ceil($total_info / $per_page);
-// 各ページで何件目から取得するか
-$offset = ($page - 1) * $per_page;
-
-/***********************************************************************
- *** 一覧取得
- ***********************************************************************/
-$sql = '
-SELECT id, name_sei, name_mei, gender, pref_name, address, created_at
-FROM members
-' . $where;
-
 $sql .= " ORDER BY $sort $order";
+
 $sql .= " LIMIT $per_page OFFSET $offset";
 
 $stmt = $pdo->prepare($sql);
-$stmt->execute($params);
-
-/***********************************************************************
- *** ページャー用の配列
- ***********************************************************************/
-$query = [
-  'search_id' => $search_id,
-  'search_gender' => $search_gender,
-  'search_pref_name' => $search_pref_name,
-  'search_freeword' => $search_freeword,
-  'sort' => $_GET['sort'] ?? 'id',
-  'order' => $_GET['order'] ?? 'desc'
-];
+$stmt->execute($params2);
 ?>
 
 <main>
@@ -220,17 +236,19 @@ $query = [
     </div>
 
     <nav class="thread_nav">
-    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+      <?php for ($i = 1; $i <= $total_pages; $i++): ?>
 
-      <?php if ($i == $page): ?>
-        <span><?= $i ?></span>
-      <?php else: ?>
-        <a href="?<?= http_build_query(array_merge($query, ['page' => $i])) ?>">
-          <?= $i ?>
-        </a>
-      <?php endif ?>
+        <?php if ($i == $page): ?>
+            <span><?= $i ?></span>
+        <?php else: ?>
+            <a href="?<?= http_build_query(
+                array_merge($params, ['page' => $i])
+            ) ?>">
+                <?= $i ?>
+            </a>
+        <?php endif ?>
 
-    <?php endfor ?>
+      <?php endfor ?>
     </nav>
 
     </div>
