@@ -271,3 +271,24 @@ VALUES
 (4,2),
 (5,2),
 (6,2);
+
+
+-- ****************************************
+-- administersテーブル
+-- ****************************************
+CREATE TABLE administers (
+  id INT NOT NULL AUTO_INCREMENT COMMENT '管理者ID',
+  name VARCHAR(255) NOT NULL COMMENT '氏名',
+  login_id VARCHAR(255) NOT NULL COMMENT 'ログインID',
+  password VARCHAR(255) NOT NULL COMMENT 'パスワード',
+  created_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '登録日時',
+  updated_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '編集日時',
+  deleted_at TIMESTAMP NULL DEFAULT NULL COMMENT '削除日時',
+  PRIMARY KEY (id)
+);
+
+INSERT INTO administers
+(name, login_id, password, created_at, updated_at, deleted_at)
+VALUES
+('管理太郎','kanritarou','admin0001',NOW(),NOW(),NULL),
+('管理次郎','kanrijirou','admin0002',NOW(),NOW(),NULL);
