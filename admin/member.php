@@ -115,19 +115,16 @@ $query = [
 
 $start_page = max(1, $page - 1);
 $end_page = min($total_pages, $page + 1);
-// 1ページ目付近なら 1,2,3
+// 1ページ目のとき
 if ($page <= 2) {
   $start_page = 1;
   $end_page = min(3, $total_pages);
 }
-// 最終ページ付近なら 7,8,9
+// 最終ページのとき
 if ($page >= $total_pages - 1) {
   $start_page = max(1, $total_pages - 2);
   $end_page = $total_pages;
 }
-
-
-
 ?>
 
 <main>
@@ -244,7 +241,6 @@ if ($page >= $total_pages - 1) {
       <?php else: ?>
         <p class="dummy"></p>
       <?php endif ?>
-
       <div class="pages">
         <?php for ($i = $start_page; $i <= $end_page; $i++): ?>
           <?php if ($i == $page): ?>
@@ -256,7 +252,6 @@ if ($page >= $total_pages - 1) {
           <?php endif ?>
         <?php endfor ?>
       </div>
-
       <?php if ($page < $total_pages): ?>
         <a href="?<?= http_build_query(array_merge($query, ['page' => $page + 1])) ?>">
           <p class="prev_next">次へ&gt;</p>

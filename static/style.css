@@ -343,7 +343,8 @@ input[type="submit"].search_button:hover {
 .thread_detail_ol {
   width: 480px;
   margin: 0 auto;
-  list-style-position: inside;
+  /* list-style-position: inside; */
+  list-style-type: none;
 }
 .comment_time {
   padding-left: 5px;

@@ -149,7 +149,7 @@ if (isset($_POST['like_comment_id'])) {
       <div class="td_title_bottom">
         <p><?= $total_comments ?>コメント</p>
         <time datetime="<?= date('c', strtotime($thread_info['created_at'])) ?>">
-          <?= date('Y/n/j G:i', strtotime($thread_info['created_at'])) ?>
+          <?= date('n/j/y G:i', strtotime($thread_info['created_at'])) ?>
         </time>
       </div>
     </div>
@@ -185,7 +185,7 @@ if (isset($_POST['like_comment_id'])) {
 
     <div class="thread_contents">
       <div class="thread_contents_top">
-        <p>投稿者:<?= htmlspecialchars($thread_info['name_sei']). ' '. htmlspecialchars($thread_info['name_mei']) ?></p>
+        <p>投稿者:<?= htmlspecialchars($thread_info['name_sei']. ' '. $thread_info['name_mei']) ?></p>
         <time datetime="<?= date('c', strtotime($thread_info['created_at'])) ?>">
           <?= date('Y.n.j G:i', strtotime($thread_info['created_at'])) ?>
         </time>
@@ -195,11 +195,11 @@ if (isset($_POST['like_comment_id'])) {
       </div>
     </div>
 
-    <ol start="<?= $offset + 1 ?>" class="thread_detail_ol">
+    <ul start="<?= $offset + 1 ?>" class="thread_detail_ol">
       <?php $comment_number = $offset; ?>
       <?php foreach ($comments as $row): ?>
         <li>
-          <?= htmlspecialchars($row['name_sei']). ' '. htmlspecialchars($row['name_mei']) ?>
+          <?= htmlspecialchars($row['id']. '. '.$row['name_sei']. ' '. $row['name_mei']) ?>
           <time class="comment_time" datetime="<?= date('c', strtotime($row['created_at'])) ?>">
             <?= date('Y.n.j G:i', strtotime($row['created_at'])) ?>
           </time>
@@ -228,7 +228,7 @@ if (isset($_POST['like_comment_id'])) {
           <hr>
         </li>
       <?php endforeach ?>
-    </ol>
+    </ul>
 
     <nav class="thread_nav">
       <div>
