@@ -77,7 +77,10 @@ $email = $member_info['email'];
     </div>
 
     <div class="center_div">
-      <a href="./member_delete.php" class="button_a">削除</a>    
+      <form action="./member_delete.php" method="post">
+        <input type="hidden" name="delete_member_id" value="<?= $member_id ?>">
+        <input type="submit" value="削除" class="mw_submit">
+      </form>
     </div>    
 
   </div>
