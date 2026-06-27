@@ -10,6 +10,9 @@ if (!isset($_SESSION['login_admin'])) {
 ?>
 
 <?php
+// URLを取得
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
 // 値を変数に代入
 $member_id = $_POST['member_id'] ?? '';
 $name_sei = trim(mb_convert_kana($_POST['name_sei'] ?? '', 's'));
@@ -115,55 +118,6 @@ if (!empty($errors)) {
 }
 ?>
 
-<main>
-  <header class="header_admin">
-      <div>
-        <p>会員編集</p>
-      </div>
-      <div>
-        <a href="./member.php" class="button_a header_button_a">一覧へ戻る</a>   
-      </div>
-  </header>
-
-  <div class="wrapper">   
-    <div class="mr_container">
-      <table class="mr_confirmTable">
-        <tbody>
-          <tr>
-            <th>ID</th>
-            <td><?= $member_id ?></td>
-          </tr>
-          <tr>
-            <th>氏名</th>
-            <td><?php echo $name_sei.' '.$name_mei ?></td>
-          </tr>
-          <tr>
-            <th>性別</th>
-            <td><?php echo $gender_list[$gender] ?? '' ?></td>
-          </tr>
-          <tr>
-            <th>住所</th>
-            <td><?php echo $pref_name.' '.$address ?></td>
-          </tr>
-          <tr>
-            <th>パスワード</th>
-            <td>セキュリティのため非表示</td>
-          </tr>
-          <tr>
-            <th>メールアドレス</th>
-            <td><?php echo $email ?></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <form action="./member_edit_complete.php" method="post">
-        <input type="hidden" name="member_id" value="<?= $member_id ?>">
-        <div class="center_div">
-          <input type="submit" value="編集完了">
-        </div>
-      </form>
-    </div>    
-  </div>
-</main>
+<?php require_once '../components/template_conf.php' ?>
 
 <?php require_once '../layout/footer.php' ?>

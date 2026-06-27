@@ -22,7 +22,7 @@ if (isset($_POST['delete_member_id'])) {
   $sql->execute([$_POST['delete_member_id']]);
 
   // 会員一覧に遷移
-  header('Location: admin/member.php');
+  header('Location: ./member.php');
   exit;
 }
 ?>
