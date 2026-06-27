@@ -15,16 +15,16 @@ $name = $_SESSION['login_admin']['name'] ?? '';
 <main>
   <header class="header_admin">
       <div>
-        <p>掲示板管理画面メインメニュー</p>
+        <h1>掲示板管理画面メインメニュー</h1>
       </div>
-      <div>
+      <div class="header_admin_right">
         <p>ようこそ<?= $name ?> さん</p>
-        <a href="./logout.php" class="button_a header_button_a">ログアウト</a>   
+        <div><a href="./logout.php" class="button_a header_button_a">ログアウト</a></div>
       </div>
 
   </header>
 
-  <div class="center_div">
+  <div class="center_div admin_main_div">
     <a href="./member.php" class="button_a">会員一覧</a>    
   </div>
 

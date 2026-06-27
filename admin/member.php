@@ -130,7 +130,7 @@ if ($page >= $total_pages - 1) {
 <main>
   <header class="header_admin">
       <div>
-        <p>会員一覧</p>
+        <h1>会員一覧</h1>
       </div>
       <div>
         <a href="./index.php" class="button_a header_button_a">トップへ戻る</a>   
@@ -141,46 +141,60 @@ if ($page >= $total_pages - 1) {
     <div class="tr_container">
 
     <div class="center_div">
-      <a href="./member_regist.php" class="button_a button_a_blue">会員登録</a>    
+      <a href="./member_regist.php" class="button_a button_a_blue button_a_member">会員登録</a>    
     </div>
 
-    <form action="" method="get">
-      <div>
-        <p>ID</p>
-        <div><input type="text" name="search_id"></div>
-        <p>性別</p>
-        <div>
-          <?php foreach ($gender_list as $key => $value): ?>
-            <label>
-              <input type="checkbox" name="search_gender[]" value="<?php echo $key ?>">
-              <?php echo $value ?>
-            </label>
-          <?php endforeach ?>			
-        </div>
-        <p>都道府県</p>
-        <div>
-          <select name="search_pref_name">
-            <option value=""></option>
-            <?php foreach ($pref_list as $value): ?>
-              <option value="<?php echo $value ?>">
-                <?php echo $value ?>
-              </option>
-            <?php endforeach ?>
-          </select>          
-        </div>
-        <p>フリーワード</p>
-        <div>
-          <input type="text" name="search_freeword">
-        </div>
+    <form action="" method="get" class="member_search_form">
+      <table class="member_search_table">
+        <tr>
+          <th><p>ID</p></th>
+          <td>
+            <input type="text" name="search_id">
+          </td>
+        </tr>
+        <tr>
+          <th><p>性別</p></th>
+          <td>
+            <div class="gender_search">
+              <?php foreach ($gender_list as $key => $value): ?>
+                <label class="gender_search_label">
+                  <input type="checkbox" name="search_gender[]" value="<?php echo $key ?>">
+                  <span class="gender_search_span"><?php echo $value ?></span>
+                </label>
+              <?php endforeach ?>			
+            </div>            
+          </td>
+        </tr>
+        <tr>
+          <th><p>都道府県</p></th>
+          <td>
+            <select name="search_pref_name">
+              <option value=""></option>
+              <?php foreach ($pref_list as $value): ?>
+                <option value="<?php echo $value ?>">
+                  <?php echo $value ?>
+                </option>
+              <?php endforeach ?>
+            </select>                 
+          </td>
+        </tr>
+        <tr>
+          <th><p>フリーワード</p></th>
+          <td>
+            <input type="text" name="search_freeword">     
+          </td>
+        </tr>
+      </table>
+      <div class="member_search_submit">
+        <input type="submit" value="検索する" class="admin_search_button">        
       </div>
-      <input type="submit" value="検索する" class="admin_search_button">
     </form>
 
     <div>
-      <table>
+      <table class="members_table">
         <thead>
           <tr>
-            <th>
+            <th class="idnum_th">
               <a href="?<?= http_build_query([
                 'search_id' => $search_id,
                 'search_gender' => $search_gender,
@@ -192,10 +206,10 @@ if ($page >= $total_pages - 1) {
                 ID▼
               </a>
             </th>
-            <th>氏名</th>
-            <th>性別</th>
+            <th class="name_th">氏名</th>
+            <th class="gender_th">性別</th>
             <th>住所</th>
-            <th>
+            <th class="date_th">
               <a href="?<?= http_build_query([
                 'search_id' => $search_id,
                 'search_gender' => $search_gender,
@@ -207,14 +221,14 @@ if ($page >= $total_pages - 1) {
                 登録日時▼
               </a>
             </th>
-            <th>編集</th>
-            <th>詳細</th>
+            <th class="edit_detail_th">編集</th>
+            <th class="edit_detail_th">詳細</th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($stmt as $row): ?>
             <tr>
-              <td><?= $row['id'] ?></td>
+              <td class="idnum"><?= $row['id'] ?></td>
               <td><a href="./member_detail.php?id=<?= $row['id'] ?>">
                 <?= htmlspecialchars($row['name_sei'].'　'.$row['name_mei']) ?>
               </a></td>

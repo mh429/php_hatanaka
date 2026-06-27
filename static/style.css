@@ -100,6 +100,20 @@ header {
 .header_admin {
   background-color: #D8D8D8
 }
+.header_admin h1 {
+  font-size: 18px;
+  font-weight: bold;
+}
+.header_admin_right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.header_admin .header_button_a {
+  margin-top: 0;
+  width: 150px;
+}
 
 /* フッター */
 footer {
@@ -402,10 +416,70 @@ input[type="submit"].mw_submit {
   padding: 5px 5px;
 }
 
+/* 管理画面トップ */
+.admin_main_div {
+  margin-top: 50px;
+}
 
-
+/* 会員一覧画面 */
+.button_a_member {
+  margin-top: 0;
+  margin-bottom: 50px;
+}
+/* 検索フォーム */
+.member_search_form {
+  margin: 0 auto;
+  width: 600px;
+}
+.member_search_table {
+  width: 600px;
+  border-collapse: collapse;
+  border: 2px solid #000;  
+}
+.member_search_table tr {
+  height: 30px;
+}
+.member_search_table th {
+  width: 200px;
+  padding: 12px;
+  padding-left: 30px;
+  text-align: left;
+  border: 1px solid #000;  
+  background-color: #D8D8D8;
+}
+.member_search_table td {
+  padding: 10px;
+  padding-left: 60px;
+  border: 1px solid #000;  
+}
+.member_search_table input[type="text"] {
+  width: 240px;
+  height: 30px;
+  padding: 5px;
+}
+.member_search_table input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+.member_search_table select {
+  width: 180px;
+  height: 30px;
+}
+.gender_search {
+  display: flex;
+  gap: 20px;
+}
+.gender_search_label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.member_search_submit {
+  text-align: center;
+  margin-top: 20px;
+}
 input[type="submit"].admin_search_button {
-  width: 130px;
+  width: 170px;
   background-color: #fff;
   color: #16305e;
   border: #16305e 1px solid;
@@ -413,6 +487,56 @@ input[type="submit"].admin_search_button {
 input[type="submit"].admin_search_button:hover {
   background-color: #e9e9e9;
 }
+/* 一覧テーブル */
+.members_table {
+  width: 600px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  border: 2px solid #000;  
+  text-align: center;
+  font-size: 14px;
+}
+.members_table th {
+  height: 22px;
+  padding: 0;
+  border: 1px dotted #000; 
+  border-bottom: 1px solid #000;  
+  background-color: #D8D8D8;
+}
+.members_table th a {
+  text-decoration: none;
+  color: #000;
+}
+.members_table th a:visited {
+  color: #000;
+}
+.members_table td {
+  padding: 0;  
+  border: 1px dotted #000;  
+  background-color: #fff;
+}
+.members_table .idnum_th {
+  width: 40px;
+}
+.members_table .name_th {
+  width: 100px;
+}
+.members_table .gender_th {
+  width: 40px;
+}
+.members_table .date_th {
+  width: 110px;
+}
+.members_table .edit_detail_th {
+  width: 40px;
+}
+.members_table tr a {
+  text-decoration: none;
+  color: #0000ee;
+}
+
+
 
 .member_nav {
   width: 220px;
