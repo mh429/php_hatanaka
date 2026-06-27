@@ -30,7 +30,8 @@ $name_sei = $_SESSION['member_edit_byadmin'][$member_id]['name_sei'] ?? $member_
 $name_mei = $_SESSION['member_edit_byadmin'][$member_id]['name_mei'] ?? $member_info['name_mei'];
 $gender = $_SESSION['member_edit_byadmin'][$member_id]['gender'] ?? $member_info['gender'];
 $pref_name = $_SESSION['member_edit_byadmin'][$member_id]['pref_name'] ?? $member_info['pref_name'];
-$address = $_SESSION['member_edit_byadmin'][$member_id]['address'] ?? $member_info['address'];
+$address_or_null = $member_info['address'] ?? '';
+$address = $_SESSION['member_edit_byadmin'][$member_id]['address'] ?? $address_or_null;
 $email = $_SESSION['member_edit_byadmin'][$member_id]['email'] ?? $member_info['email'];
 
 // セッションからエラーを取得

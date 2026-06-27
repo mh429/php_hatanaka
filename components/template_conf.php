@@ -2,9 +2,9 @@
   <header class="header_admin">
       <div>
 				<?php if($url === '/admin/member_regist_confirm.php'): ?>
-        	<p>会員登録</p>
+        	<h1>会員登録</h1>
 				<?php elseif($url === '/admin/member_edit_confirm.php'): ?>
-        	<p>会員編集</p>
+        	<h1>会員編集</h1>
 				<?php endif ?>
       </div>
       <div>
@@ -45,7 +45,7 @@
 
 			<?php if($url === '/admin/member_regist_confirm.php'): ?>
         <form action="./member_regist_complete.php" method="post">
-          <div class="center_div">
+          <div class="center_div admin_submit_button">
             <input type="submit" value="登録完了">
           </div>
         </form>
@@ -55,7 +55,7 @@
 			<?php elseif($url === '/admin/member_edit_confirm.php'): ?>
         <form action="./member_edit_complete.php" method="post">
           <input type="hidden" name="member_id" value="<?= $member_id ?>">
-          <div class="center_div">
+          <div class="center_div admin_submit_button">
             <input type="submit" value="編集完了">
           </div>
         </form>

@@ -197,7 +197,7 @@ footer {
   width: 120px;
 }
 .mr_Input {
-  width: 200px;
+  width: 250px;
 }
 /* 会員情報確認画面 */
 .mr_confirmTable {
@@ -520,24 +520,22 @@ input[type="submit"].admin_search_button:hover {
   width: 40px;
 }
 .members_table .name_th {
-  width: 100px;
+  width: 110px;
 }
 .members_table .gender_th {
   width: 40px;
 }
 .members_table .date_th {
-  width: 110px;
+  width: 100px;
 }
 .members_table .edit_detail_th {
-  width: 40px;
+  width: 38px;
 }
 .members_table tr a {
   text-decoration: none;
   color: #0000ee;
 }
-
-
-
+/* ページャー */
 .member_nav {
   width: 220px;
   height: 30px;
@@ -574,4 +572,43 @@ input[type="submit"].admin_search_button:hover {
 .member_nav .selected_page {
   background-color: #666;
   color: #fff;
+}
+
+/* 会員詳細画面 */
+.member_detail_buttons {
+  margin: 0 auto 30px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.member_detail_buttons .button_a{
+  margin-top: 0;
+  width: 140px;
+  height: 33px;
+}
+.member_detail_buttons input[type="submit"]{
+  margin-top: 0;
+  width: 140px;
+  height: 33px;
+  background-color: #fff;
+  color: #16305e;
+  border: #16305e 1px solid;
+}
+.member_detail_buttons input[type="submit"]:hover {
+  background-color: #e9e9e9;
+}
+
+/* 会員登録・編集テンプレート */
+.mr_title_id {
+  padding-right: 38px;
+}
+.admin_submit_button input[type="submit"] {
+  margin-top: 20px;
+  background-color: #fff;
+  color: #16305e;
+  border: #16305e 1px solid;
+}
+.admin_submit_button input[type="submit"]:hover {
+  background-color: #e9e9e9;
 }

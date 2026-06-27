@@ -33,7 +33,7 @@ $email = $member_info['email'];
 <main>
   <header class="header_admin">
       <div>
-        <p>会員詳細</p>
+        <h1>会員詳細</h1>
       </div>
       <div>
         <a href="./member.php" class="button_a header_button_a">一覧へ戻る</a>   
@@ -72,16 +72,15 @@ $email = $member_info['email'];
       </table>
     </div>    
 
-    <div class="center_div">
-      <a href="./member_edit.php?id=<?= $member_id ?>" class="button_a">編集</a>    
-    </div>
-
-    <div class="center_div">
+    <div class="member_detail_buttons">
+      <div>
+        <a href="./member_edit.php?id=<?= $member_id ?>" class="button_a">編集</a>
+      </div>
       <form action="./member_delete.php" method="post">
         <input type="hidden" name="delete_member_id" value="<?= $member_id ?>">
         <input type="submit" value="削除" class="mw_submit">
       </form>
-    </div>    
+    </div>
 
   </div>
 </main>

@@ -2,9 +2,9 @@
   <header class="header_admin">
       <div>
 				<?php if($url === '/admin/member_regist.php'): ?>
-        	<p>会員登録</p>
+        	<h1>会員登録</h1>
 				<?php elseif($url === '/admin/member_edit.php'): ?>
-        	<p>会員編集</p>
+        	<h1>会員編集</h1>
 				<?php endif ?>
       </div>
       <div>
@@ -22,12 +22,12 @@
 			<?php endif ?>
 
 				<div class="mr_contentsWrapper">
-					<span class="mr_title">ID</span>
+					<span class="mr_title_id">ID</span>
           <?php if($url === '/admin/member_regist.php'): ?>
-            <p>登録後に自動採番</p>
+            登録後に自動採番
           <?php elseif($url === '/admin/member_edit.php'): ?>
             <input type="hidden" name="member_id" value="<?= $member_id ?>">						
-            <p><?= $member_id ?></p>
+            <?= $member_id ?>
           <?php endif ?>
 				</div>
 
@@ -147,7 +147,7 @@
 					</div>
 				</div>
 				
-				<div class="center_div">
+				<div class="center_div admin_submit_button">
 					<input type="submit" value="確認画面へ">
 				</div>
 			</form>			

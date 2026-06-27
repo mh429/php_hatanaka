@@ -117,7 +117,7 @@ if ($password === '') {
       updated_at = NOW()
     WHERE id = ?'
   );
-  $sql->execute([$name_sei, $name_mei, $gender, $pref_name, $address, $email, $member_id]);
+  $sql->execute([$name_sei, $name_mei, $gender, $pref_name, $address !== '' ? $address : NULL, $email, $member_id]);
 } else {
   $password_hash = password_hash($password, PASSWORD_DEFAULT);
   $sql = $pdo->prepare(
@@ -132,7 +132,7 @@ if ($password === '') {
       updated_at = NOW()
     WHERE id = ?'
   );
-  $sql->execute([$name_sei, $name_mei, $gender, $pref_name, $address, $password_hash, $email, $member_id]);
+  $sql->execute([$name_sei, $name_mei, $gender, $pref_name, $address !== '' ? $address : NULL, $password_hash, $email, $member_id]);
 }
 
 // セッション削除
