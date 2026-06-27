@@ -195,13 +195,19 @@ if ($page >= $total_pages - 1) {
         <thead>
           <tr>
             <th class="idnum_th">
+              <?php 
+                $id_order = 'asc';
+                if ($sort === 'id') {
+                    $id_order = ($order === 'DESC') ? 'asc' : 'desc';
+                }
+              ?>
               <a href="?<?= http_build_query([
                 'search_id' => $search_id,
                 'search_gender' => $search_gender,
                 'search_pref_name' => $search_pref_name,
                 'search_freeword' => $search_freeword,
                 'sort' => 'id',
-                'order' => $sort === 'id' && $order === 'DESC' ? 'asc' : 'desc'
+                'order' => $id_order
               ]) ?>">
                 ID▼
               </a>
@@ -210,13 +216,19 @@ if ($page >= $total_pages - 1) {
             <th class="gender_th">性別</th>
             <th>住所</th>
             <th class="date_th">
+              <?php 
+                $created_at_order = 'asc';
+                if ($sort === 'created_at') {
+                    $created_at_order = ($order === 'DESC') ? 'asc' : 'desc';
+                }
+              ?>
               <a href="?<?= http_build_query([
                 'search_id' => $search_id,
                 'search_gender' => $search_gender,
                 'search_pref_name' => $search_pref_name,
                 'search_freeword' => $search_freeword,
                 'sort' => 'created_at',
-                'order' => $sort === 'created_at' && $order === 'ASC' ? 'desc' : 'asc'
+                'order' => $created_at_order
               ]) ?>">
                 登録日時▼
               </a>

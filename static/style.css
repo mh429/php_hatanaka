@@ -504,11 +504,12 @@ input[type="submit"].admin_search_button:hover {
   border-bottom: 1px solid #000;  
   background-color: #D8D8D8;
 }
-.members_table th a {
-  text-decoration: none;
-  color: #000;
-}
+.members_table th a,
+.members_table th a:link,
+.members_table th a:active,
+.members_table th a:hover,
 .members_table th a:visited {
+  text-decoration: none;
   color: #000;
 }
 .members_table td {
