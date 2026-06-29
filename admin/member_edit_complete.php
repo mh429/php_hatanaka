@@ -56,7 +56,7 @@ if ($gender === '') {
 }	
 }
 // 住所
-if ($pref_name === '選択してください') {
+if ($pref_name === '') {
   $errors['address'][] = '※住所（都道府県）を選択してください';
 } else {
   if (!in_array($pref_name, $pref_list)) {

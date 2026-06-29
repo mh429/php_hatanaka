@@ -17,7 +17,7 @@ $error_message = $_SESSION['login_input']['error_message'] ?? '';
 	<div class="wrapper">
 		<h1>ログイン</h1>
 		
-		<div class="mr_container">
+		<div class="login_container">
 			<form action="login_confirm.php" method="post">
 				<div class="mr_contentsWrapper">
 					<label>
@@ -29,7 +29,7 @@ $error_message = $_SESSION['login_input']['error_message'] ?? '';
 				<div class="mr_contentsWrapper">
 					<label>
 						<span class="login_title">パスワード</span>
-						<input type="password" name="password" class="mr_Input" required>
+						<input type="text" name="password" class="mr_Input mask" required>
 					</label>
 
 				</div>

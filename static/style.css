@@ -212,8 +212,15 @@ footer {
   font-weight: normal;
   text-align: left;
 }
+.mr_confirmTable td {
+  word-break: break-all;
+}
 
 /* ログイン画面 */
+.login_container {
+  margin-top: 30px;
+  text-align: center;
+}
 .login_title {
   display: inline-block;
   width: 160px;
@@ -416,6 +423,11 @@ input[type="submit"].mw_submit {
   padding: 5px 5px;
 }
 
+/* 管理画面ログイン */
+.mask {
+  -webkit-text-security: disc;
+}
+
 /* 管理画面トップ */
 .admin_main_div {
   margin-top: 50px;
@@ -516,6 +528,7 @@ input[type="submit"].admin_search_button:hover {
   padding: 0;  
   border: 1px dotted #000;  
   background-color: #fff;
+  word-break: break-all;
 }
 .members_table .idnum_th {
   width: 40px;

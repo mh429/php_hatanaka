@@ -37,11 +37,11 @@
 						<div class="mr_inputs">
 							<label>
 								<span class="mr_nameTitle">姓</span>
-								<input type="text" name="name_sei" value="<?php echo htmlspecialchars($name_sei) ?>">
+								<input type="text" name="name_sei" value="<?php echo htmlspecialchars($name_sei) ?>" required>
 							</label>
 							<label>
 								<span class="mr_nameTitle">名</span>
-								<input type="text" name="name_mei" value="<?php echo htmlspecialchars($name_mei) ?>">
+								<input type="text" name="name_mei" value="<?php echo htmlspecialchars($name_mei) ?>" required>
 							</label>	
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 						<div class="mr_inputs">
 							<?php foreach ($gender_list as $key => $value): ?>
 								<label>
-									<input type="radio" name="gender" value="<?php echo $key ?>" <?php if ($key == $gender) echo 'checked' ?> >
+									<input type="radio" name="gender" value="<?php echo $key ?>" <?php if ($key == $gender) echo 'checked' ?> required>
 									<?php echo $value ?>
 								</label>
 							<?php endforeach ?>						
@@ -81,8 +81,8 @@
 						<div class="mr_prefInputs">
 							<label>
 								<span class="mr_prefTitle">都道府県</span>
-								<select name="pref_name">
-									<option value="選択してください">選択してください</option>
+								<select name="pref_name" required>
+									<option value="">選択してください</option>
 									<?php foreach ($pref_list as $value): ?>
 										<option value="<?php echo $value ?>" <?php if ($value == $pref_name) echo 'selected' ?> >
 											<?php echo $value ?>
@@ -108,7 +108,11 @@
 				<div class="mr_contentsWrapper">
 					<label>
 						<span class="mr_title">パスワード</span>
-						<input type="password" name="password" class="mr_Input">
+						<?php if($url === '/admin/member_regist.php'): ?>
+							<input type="text" name="password" class="mr_Input mask" required>
+						<?php elseif($url === '/admin/member_edit.php'): ?>
+							<input type="text" name="password" class="mr_Input mask">
+						<?php endif ?>
 					</label>
 					<div class="mr-errors">
 						<?php if (isset($errors['password'])): ?>
@@ -122,7 +126,11 @@
 				<div class="mr_contentsWrapper">
 					<label>
 						<span class="mr_title">パスワード確認</span>
-						<input type="password" name="password_confirm" class="mr_Input">
+						<?php if($url === '/admin/member_regist.php'): ?>
+							<input type="text" name="password_confirm" class="mr_Input mask" required>
+						<?php elseif($url === '/admin/member_edit.php'): ?>
+							<input type="text" name="password_confirm" class="mr_Input mask">
+						<?php endif ?>
 					</label>
 					<div class="mr-errors">
 						<?php if (isset($errors['password_confirm'])): ?>
@@ -136,7 +144,7 @@
 				<div class="mr_contentsWrapper">
 					<label>
 						<span class="mr_title">メールアドレス</span>
-						<input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>" class="mr_Input">
+						<input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>" class="mr_Input" required>
 					</label>
 					<div class="mr-errors">
 						<?php if (isset($errors['email'])): ?>

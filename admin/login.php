@@ -20,7 +20,7 @@ $error_message = $_SESSION['admin_login_input']['error_message'] ?? '';
 	<div class="wrapper">
 		<h1>管理画面</h1>
 		
-		<div class="mr_container">
+		<div class="login_container">
 			<form action="./login_confirm.php" method="post">
 				<div class="mr_contentsWrapper">
 					<label>
