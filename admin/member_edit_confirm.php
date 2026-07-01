@@ -67,8 +67,8 @@ if ($pref_name === '') {
 if (mb_strlen($address) > 100) {
   $errors['address'][] = '※住所（それ以降の住所）は100文字以内で入力してください';
 }
-// パスワードが入力されていたらチェック
-if ($password !== '' && $password_confirm !== '') {
+// パスワードかパスワード確認が入力されていたらチェック
+if ($password !== '' || $password_confirm !== '') {
   // パスワード
   if (!preg_match('/^[a-zA-Z0-9]+$/', $password)) {
     $errors['password'][] = '※パスワードは半角英数字で入力してください';
@@ -76,15 +76,19 @@ if ($password !== '' && $password_confirm !== '') {
   if (mb_strlen($password) < 8 || mb_strlen($password) > 20) {
     $errors['password'][] = '※パスワードは8～20文字で入力してください';
   }
-  // パスワード確認
-  if (!preg_match('/^[a-zA-Z0-9]+$/', $password_confirm)) {
-    $errors['password_confirm'][] = '※パスワード確認は半角英数字で入力してください';
-  }
-  if (mb_strlen($password_confirm) < 8 || mb_strlen($password_confirm) > 20) {
-    $errors['password_confirm'][] = '※パスワード確認は8～20文字で入力してください';
-  }
-  if ($password !== $password_confirm) {
-    $errors['password_confirm'][] = '※パスワードが一致しません';
+  if ($password_confirm === '') {
+    $errors['password_confirm'][] = '※パスワード確認は必須入力です';
+  } else {
+    // パスワード確認
+    if (!preg_match('/^[a-zA-Z0-9]+$/', $password_confirm)) {
+      $errors['password_confirm'][] = '※パスワード確認は半角英数字で入力してください';
+    }
+    if (mb_strlen($password_confirm) < 8 || mb_strlen($password_confirm) > 20) {
+      $errors['password_confirm'][] = '※パスワード確認は8～20文字で入力してください';
+    }
+    if ($password !== $password_confirm) {
+      $errors['password_confirm'][] = '※パスワードが一致しません';
+    }         
   }
 }
 
